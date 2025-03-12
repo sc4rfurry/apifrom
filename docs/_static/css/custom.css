@@ -1,23 +1,54 @@
 /* Custom styles for APIFromAnything documentation */
 
+/* Base styling improvements */
+body {
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+p {
+    margin-bottom: 1.2em;
+}
+
 /* Improve code block styling */
 .highlight {
-    background: #f8f8f8;
-    border-radius: 5px;
+    background: #f5f7f9;
+    border-radius: 6px;
     border: 1px solid #e1e4e5;
-    margin: 1em 0;
-    padding: 1em;
+    margin: 1.2em 0;
+    padding: 1.2em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Improve table styling */
 .wy-table-responsive table td, .wy-table-responsive table th {
     white-space: normal;
+    padding: 10px 15px;
+    border: 1px solid #e1e4e5;
+}
+
+.wy-table-responsive table th {
+    background-color: #f0f6fc;
+    font-weight: 600;
+}
+
+.wy-table-responsive table tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 .wy-table-responsive {
     margin-bottom: 24px;
     max-width: 100%;
     overflow: visible;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.wy-table-responsive table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
 /* Improve heading styling */
@@ -28,33 +59,42 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 2em;
-    color: #2980B9;
-    border-bottom: 1px solid #e1e4e5;
-    padding-bottom: 0.3em;
+    font-size: 2.2em;
+    color: #1b5385;
+    border-bottom: 2px solid #e1e4e5;
+    padding-bottom: 0.4em;
+    margin-top: 1.8em;
+    letter-spacing: -0.02em;
 }
 
 h2 {
-    font-size: 1.5em;
+    font-size: 1.7em;
     color: #2980B9;
     border-bottom: 1px solid #e1e4e5;
     padding-bottom: 0.3em;
+    margin-top: 1.5em;
+    letter-spacing: -0.01em;
 }
 
 h3 {
-    font-size: 1.3em;
+    font-size: 1.4em;
     color: #2980B9;
+    margin-top: 1.3em;
+    font-weight: 600;
 }
 
 h4 {
     font-size: 1.2em;
     color: #2980B9;
+    margin-top: 1.2em;
+    font-weight: 600;
 }
 
 /* Improve link styling */
 a {
     color: #2980B9;
     text-decoration: none;
+    transition: color 0.2s ease-in-out;
 }
 
 a:hover {
@@ -62,10 +102,17 @@ a:hover {
     text-decoration: underline;
 }
 
+a:focus {
+    outline: 2px solid rgba(41, 128, 185, 0.3);
+    outline-offset: 2px;
+}
+
 /* Improve note and warning styling */
 .admonition {
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    margin: 1.5em 0;
+    padding: 0.5em 1em;
 }
 
 .admonition.note {
@@ -73,9 +120,19 @@ a:hover {
     border-left: 6px solid #2980B9;
 }
 
+.admonition.note .admonition-title {
+    color: #2980B9;
+    font-weight: 600;
+}
+
 .admonition.warning {
     background-color: #fff8f8;
     border-left: 6px solid #E74C3C;
+}
+
+.admonition.warning .admonition-title {
+    color: #E74C3C;
+    font-weight: 600;
 }
 
 .admonition.tip {
@@ -90,12 +147,22 @@ a:hover {
 
 /* Improve code inline styling */
 code.literal {
-    background-color: #f8f8f8;
+    background-color: #f5f7f9;
     border: 1px solid #e1e4e5;
-    border-radius: 3px;
+    border-radius: 4px;
     color: #E74C3C;
     font-size: 90%;
-    padding: 2px 4px;
+    padding: 2px 6px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+pre {
+    background-color: #f5f7f9;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    line-height: 1.5;
 }
 
 /* Improve navigation styling */
@@ -110,13 +177,32 @@ code.literal {
 
 /* Improve search box styling */
 .wy-side-nav-search {
-    background-color: #2980B9;
+    background-color: #1b5385;
+    padding: 1em;
+}
+
+.wy-side-nav-search .wy-dropdown > a, 
+.wy-side-nav-search > a {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.wy-side-nav-search > div.version {
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5em;
 }
 
 .wy-side-nav-search input[type="text"] {
-    border-radius: 5px;
+    border-radius: 6px;
     border: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.8em;
+    transition: all 0.2s ease-in-out;
+}
+
+.wy-side-nav-search input[type="text"]:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
 /* Improve footer styling */
@@ -193,15 +279,75 @@ dd {
     .wy-nav-side {
         width: 300px;
         left: -300px;
+        transition: left 0.3s ease-in-out;
     }
     
     .wy-nav-content {
         margin-left: 0;
         max-width: 100%;
+        padding: 1.5em;
     }
     
     .wy-nav-side.shift {
         width: 85%;
         left: 0;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
     }
-} 
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    h3 {
+        font-size: 1.3em;
+    }
+    
+    .wy-table-responsive {
+        overflow-x: auto;
+    }
+}
+
+/* Add some APIFromAnything brand styling */
+.rst-content .section ol li > p:first-child, 
+.rst-content .section ul li > p:first-child {
+    margin-bottom: 0.5em;
+}
+
+/* Improve spacing in lists */
+.rst-content .section ol li, 
+.rst-content .section ul li {
+    margin-bottom: 0.5em;
+}
+
+/* Add subtle API brand elements */
+.rst-content .section:not(.sphinxsidebar) > h2, 
+.rst-content .section:not(.sphinxsidebar) > h3 {
+    position: relative;
+}
+
+.rst-content .section:not(.sphinxsidebar) > h2::after, 
+.rst-content .section:not(.sphinxsidebar) > h3::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 40px;
+    height: 4px;
+    background: linear-gradient(90deg, #2980B9, #3498db);
+    border-radius: 2px;
+}
+
+/* Improve main content container */
+.wy-nav-content {
+    max-width: 900px;
+    padding: 2em 3em;
+}
+
+/* Fix list spacing */
+.rst-content .section ul,
+.rst-content .section ol {
+    margin-bottom: 

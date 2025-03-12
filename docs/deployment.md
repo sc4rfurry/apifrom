@@ -7,13 +7,13 @@ This guide provides instructions for deploying APIs built with APIFromAnything i
 - [Docker Deployment](#docker-deployment)
 - [Kubernetes Deployment](#kubernetes-deployment)
 - [Serverless Deployment](#serverless-deployment)
-  - [AWS Lambda](#aws-lambda)
-  - [Google Cloud Functions](#google-cloud-functions)
-  - [Azure Functions](#azure-functions)
+- [AWS Lambda](#aws-lambda)
+- [Google Cloud Functions](#google-cloud-functions)
+- [Azure Functions](#azure-functions)
 - [Performance Considerations](#performance-considerations)
 - [Monitoring in Production](#monitoring-in-production)
 
-## Docker Deployment
+## Docker Deployment {#docker-deployment}
 
 Docker provides a consistent and isolated environment for running your API. Here's how to containerize an API built with APIFromAnything:
 
@@ -94,7 +94,7 @@ Run with:
 docker-compose up
 ```
 
-## Kubernetes Deployment
+## Kubernetes Deployment {#kubernetes-deployment}
 
 Kubernetes provides a robust platform for deploying, scaling, and managing containerized applications.
 
@@ -202,11 +202,11 @@ Apply the HPA configuration:
 kubectl apply -f hpa.yaml
 ```
 
-## Serverless Deployment
+## Serverless Deployment {#serverless-deployment}
 
 APIFromAnything can be deployed to serverless platforms, allowing you to run your API without managing servers.
 
-### AWS Lambda
+### AWS Lambda {#aws-lambda}
 
 #### 1. Create a Lambda handler
 
@@ -265,7 +265,7 @@ aws lambda create-function \
 2. Create a resource and method that integrates with your Lambda function
 3. Deploy the API to a stage
 
-### Google Cloud Functions
+### Google Cloud Functions {#google-cloud-functions}
 
 #### 1. Create a Cloud Function handler
 
@@ -311,7 +311,7 @@ gcloud functions deploy my-api \
   --entry-point handler
 ```
 
-### Azure Functions
+### Azure Functions {#azure-functions}
 
 #### 1. Create an Azure Function project
 
@@ -364,7 +364,7 @@ apifrom>=0.1.0
 func azure functionapp publish my-api-app
 ```
 
-## Performance Considerations
+## Performance Considerations {#performance-considerations}
 
 When deploying APIFromAnything in production, consider the following performance optimizations:
 
@@ -422,7 +422,7 @@ Before deploying to production, perform load testing to identify bottlenecks:
 ab -n 1000 -c 100 http://localhost:8000/api/endpoint
 ```
 
-## Monitoring in Production
+## Monitoring in Production {#monitoring-in-production}
 
 APIFromAnything provides built-in monitoring capabilities that can be integrated with various monitoring systems.
 

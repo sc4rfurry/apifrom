@@ -90,3 +90,33 @@ pip install "apifrom[all]"
 ## License
 
 APIFromAnything is licensed under the MIT License. See the [LICENSE](https://github.com/apifrom/apifrom/blob/main/LICENSE) file for details. 
+
+```{toctree}
+:maxdepth: 2
+:caption: Contents:
+
+contents
+getting_started
+core_concepts
+api_reference
+autoapi/index
+middleware
+security
+performance
+testing
+deployment
+deployment_guide
+serverless
+advanced_caching
+plugins
+production_checklist
+troubleshooting
+migration_guide
+monitoring
+environment_and_monitoring
+production_readiness
+github_deployment
+examples
+contributing
+requirements
+```

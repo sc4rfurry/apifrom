@@ -1,0 +1,29 @@
+name: ReadTheDocs
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'docs/**'
+      - '.readthedocs.yml'
+      - 'docs/requirements.txt'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'docs/**'
+      - '.readthedocs.yml'
+      - 'docs/requirements.txt'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Trigger ReadTheDocs build
+        uses: dfm/rtds-action@v1
+        with:
+          webhook_url: ${{ secrets.RTDS_WEBHOOK_URL }}
+          webhook_token: ${{ secrets.RTDS_WEBHOOK_TOKEN }}
+          commit_ref: ${{ github.ref }} 

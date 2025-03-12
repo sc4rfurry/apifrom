@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: APIFromAnything Documentation
+    url: https://apifrom.readthedocs.io/
+    about: Check the documentation for answers to common questions
+  - name: GitHub Discussions
+    url: https://github.com/apifrom/apifrom/discussions
+    about: Please ask and answer questions here
+  - name: Discord Community
+    url: https://discord.gg/apifrom
+    about: Join our Discord community for real-time discussions 

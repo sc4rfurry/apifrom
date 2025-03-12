@@ -1,0 +1,55 @@
+/* Muted Theme for Swagger UI */
+.swagger-ui, .swagger-ui .info .title, .swagger-ui .opblock-tag, .swagger-ui .opblock .opblock-summary-operation-id, 
+.swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-description {
+    color: #5c6873;
+}
+
+.swagger-ui .topbar {
+    background-color: #546E7A;
+}
+
+.swagger-ui .info {
+    background-color: #f9fafb;
+}
+
+.swagger-ui .opblock {
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+    border: none;
+    box-shadow: 0 1px 3px rgba(92, 104, 115, 0.1);
+}
+
+.swagger-ui .opblock:hover {
+    opacity: 1;
+}
+
+.swagger-ui .opblock-tag {
+    border-bottom: 1px solid #eceff1;
+    background: transparent;
+}
+
+.swagger-ui .opblock.opblock-get {
+    background-color: rgba(97, 175, 254, 0.05);
+}
+
+.swagger-ui .opblock.opblock-post {
+    background-color: rgba(73, 204, 144, 0.05);
+}
+
+.swagger-ui .opblock.opblock-put {
+    background-color: rgba(252, 161, 48, 0.05);
+}
+
+.swagger-ui .opblock.opblock-delete {
+    background-color: rgba(249, 62, 62, 0.05);
+}
+
+.swagger-ui .btn {
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+    border-radius: 3px;
+}
+
+.swagger-ui .btn:hover {
+    opacity: 1;
+}

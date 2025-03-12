@@ -1,0 +1,75 @@
+/* Outline Theme for Swagger UI */
+.swagger-ui .opblock {
+    background: transparent;
+    border: 2px solid;
+}
+
+.swagger-ui .opblock.opblock-get {
+    border-color: #61affe;
+    background-color: transparent;
+}
+
+.swagger-ui .opblock.opblock-post {
+    border-color: #49cc90;
+    background-color: transparent;
+}
+
+.swagger-ui .opblock.opblock-put {
+    border-color: #fca130;
+    background-color: transparent;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    border-color: #f93e3e;
+    background-color: transparent;
+}
+
+.swagger-ui .opblock.opblock-patch {
+    border-color: #50e3c2;
+    background-color: transparent;
+}
+
+.swagger-ui .opblock .opblock-summary-method {
+    border: 2px solid;
+}
+
+.swagger-ui .opblock-tag {
+    border: 2px solid #e8ebee;
+    background: transparent;
+}
+
+.swagger-ui .btn {
+    border: 2px solid;
+    background: transparent;
+    color: inherit;
+}
+
+.swagger-ui .btn.execute {
+    border-color: #4caf50;
+    color: #4caf50;
+}
+
+.swagger-ui .btn.execute:hover {
+    background-color: #4caf50;
+    color: white;
+}
+
+.swagger-ui .btn.cancel {
+    border-color: #f44336;
+    color: #f44336;
+}
+
+.swagger-ui .btn.cancel:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.swagger-ui .auth-wrapper .authorize {
+    border-color: #651fff;
+    color: #651fff;
+}
+
+.swagger-ui .auth-wrapper .authorize:hover {
+    background-color: #651fff;
+    color: white;
+}

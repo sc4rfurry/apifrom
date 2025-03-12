@@ -1,547 +1,624 @@
-# <div align="center">🚀 APIFromAnything</div>
+# 🚀 APIFromAnything
 
 <div align="center">
-  <img src="https://img.shields.io/badge/APIFromAnything-Transform%20Python%20Functions%20to%20APIs-blue?style=for-the-badge&logo=python" alt="APIFromAnything" />
-  <br/>
-  <strong>Transform any Python function into a production-ready REST API endpoint in seconds</strong>
+
+[![PyPI version](https://img.shields.io/badge/pypi-v1.0.0-blue.svg)](https://pypi.org/project/apifrom/)
+[![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://apifrom.readthedocs.io/en/latest/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Python Versions](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue)](https://pypi.org/project/apifrom/)
+[![Docker](https://img.shields.io/badge/docker-available-blue)](https://hub.docker.com/r/apifrom/apifrom)
+
+**Transform Python functions into powerful API endpoints with minimal code changes**
+
+[Documentation](https://apifrom.readthedocs.io/) | [Quick Start](#-quick-start) | [Examples](#-examples) | [Contributing](#-contributing)
+
 </div>
 
-<p align="center">
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT" />
-  </a>
-  <a href="https://pypi.org/project/apifrom/">
-    <img src="https://img.shields.io/badge/version-0.1.0-brightgreen.svg?style=flat-square" alt="Version" />
-  </a>
-  <a href="#python-versions">
-    <img src="https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue?style=flat-square&logo=python" alt="Python Versions" />
-  </a>
-  <a href="#status">
-    <img src="https://img.shields.io/badge/status-production--ready-green?style=flat-square" alt="Status" />
-  </a>
-  <a href="#documentation">
-    <img src="https://img.shields.io/badge/docs-passing-brightgreen?style=flat-square&logo=readthedocs" alt="Docs Status" />
-  </a>
-  <br/>
-  <a href="#code-style">
-    <img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square" alt="Code Style: Black" />
-  </a>
-  <a href="#contributors">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome" />
-  </a>
-  <a href="https://github.com/sc4rfurry/apifrom/stargazers">
-    <img src="https://img.shields.io/github/stars/apifrom/apifrom?style=flat-square" alt="GitHub stars" />
-  </a>
-</p>
+## 📋 Table of Contents
 
-<div align="center">
-  <a href="#-quick-start">Quick Start</a> •
-  <a href="#-why-apifrom">Why APIFromAnything?</a> •
-  <a href="#-key-features">Key Features</a> •
-  <a href="#-installation">Installation</a> •
-  <a href="#-examples">Examples</a> •
-  <a href="#-advanced-features">Advanced Features</a> •
-  <a href="#-performance-optimization">Performance</a> •
-  <a href="#-documentation">Documentation</a> •
-  <a href="#-community">Community</a> •
-  <a href="#-contributing">Contributing</a> •
-  <a href="#-license">License</a>
-</div>
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Examples](#-examples)
+- [Architecture](#-architecture)
+- [Middleware](#-middleware)
+- [Security](#-security)
+- [Performance](#-performance)
+- [Monitoring](#-monitoring)
+- [Deployment](#-deployment)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
 
----
+## 🔍 Overview
 
-## 🚀 Overview
+APIFromAnything is a powerful Python framework that transforms regular Python functions into fully-featured API endpoints with minimal code changes. It's designed to simplify API development while providing enterprise-grade features like middleware support, security, performance optimizations, and monitoring.
 
-**APIFromAnything** is a production-grade Python library that transforms ordinary Python functions into fully-functional REST API endpoints using a decorator-based approach. It's designed to be robust, extensible, and high-performance, with features like automatic routing, input validation, output serialization, error handling, and documentation generation.
-
-<div align="center">
-  <img src="https://img.shields.io/badge/From%20Function%20to%20API-In%20Seconds-purple?style=for-the-badge" alt="From Function to API in Seconds" />
-</div>
-
-```python
-from apifrom import API, api
-
-app = API(title="My API")
-
-@api(route="/hello/{name}")
-def hello(name: str, greeting: str = "Hello") -> dict:
-    """Say hello to someone."""
-    return {"message": f"{greeting}, {name}!"}
-
-```
-
-## ⚡ Getting Started in 30 Seconds
-
-1. **Install the package**:
-   ```bash
-   pip install apifrom
-   ```
-
-2. **Create your API** (`app.py`):
-   ```python
-   from apifrom import API, api
-
-   app = API(title="Quick Start API")
-
-   @api(route="/hello/{name}")
-   def hello(name: str, greeting: str = "Hello") -> dict:
-       return {"message": f"{greeting}, {name}!"}
-
-   if __name__ == "__main__":
-       app.run()
-   ```
-
-3. **Run your API**:
-   ```bash
-   python app.py
-   ```
-
-4. **Test your API**:
-   ```bash
-   curl "http://localhost:8000/hello/World?greeting=Hi"
-   # {"message": "Hi, World!"}
-   ```
-
-5. **View API documentation** at `http://localhost:8000/docs`
-
-## 🤔 Why APIFromAnything?
-
-<table>
-  <tr>
-    <td><b>🧠 Intuitive Design</b></td>
-    <td>Simple decorator-based API that feels natural to Python developers</td>
-  </tr>
-  <tr>
-    <td><b>⚡ Lightning Fast Development</b></td>
-    <td>Create production-ready APIs in minutes instead of hours or days</td>
-  </tr>
-  <tr>
-    <td><b>🛡️ Built-in Security</b></td>
-    <td>Comprehensive security features including JWT, OAuth2, API keys, and more</td>
-  </tr>
-  <tr>
-    <td><b>🔍 Type-Based Validation</b></td>
-    <td>Automatic request validation using Python type hints and Pydantic models</td>
-  </tr>
-  <tr>
-    <td><b>🔌 Extensible Plugin System</b></td>
-    <td>Powerful plugin architecture for customizing and extending functionality</td>
-  </tr>
-  <tr>
-    <td><b>☁️ Cloud-Ready</b></td>
-    <td>Deploy to AWS Lambda, Google Cloud Functions, Azure, Vercel, or Netlify with ease</td>
-  </tr>
-  <tr>
-    <td><b>📊 Built-in Monitoring</b></td>
-    <td>Comprehensive metrics and monitoring capabilities out of the box</td>
-  </tr>
-</table>
+Whether you're building a simple microservice or a complex API backend, APIFromAnything provides the tools you need to get up and running quickly without sacrificing flexibility or performance.
 
 ## ✨ Key Features
 
-<table>
-  <tr>
-    <td><b>🧩 Simple Decorator API</b></td>
-    <td>Transform any Python function into an API endpoint with a single decorator</td>
-  </tr>
-  <tr>
-    <td><b>🔍 Type-Based Validation</b></td>
-    <td>Automatic request validation based on Python type hints</td>
-  </tr>
-  <tr>
-    <td><b>🔄 Automatic Serialization</b></td>
-    <td>Convert Python objects to JSON responses automatically</td>
-  </tr>
-  <tr>
-    <td><b>🛣️ Path & Query Parameters</b></td>
-    <td>Support for path and query parameters with automatic type conversion</td>
-  </tr>
-  <tr>
-    <td><b>⚡ Asynchronous Support</b></td>
-    <td>First-class support for async/await functions</td>
-  </tr>
-  <tr>
-    <td><b>🔌 Middleware System</b></td>
-    <td>Extensible middleware system for request/response processing</td>
-  </tr>
-  <tr>
-    <td><b>🔒 Security Features</b></td>
-    <td>Built-in support for JWT, API key, Basic auth, OAuth2, CORS, CSRF, security headers, and more</td>
-  </tr>
-  <tr>
-    <td><b>📚 OpenAPI Documentation</b></td>
-    <td>Automatic generation of OpenAPI/Swagger documentation</td>
-  </tr>
-  <tr>
-    <td><b>📊 Monitoring & Metrics</b></td>
-    <td>Track API performance and usage with comprehensive metrics collection</td>
-  </tr>
-  <tr>
-    <td><b>🚀 Performance Optimization</b></td>
-    <td>Tools for profiling, caching, connection pooling, and batch processing</td>
-  </tr>
-  <tr>
-    <td><b>☁️ Serverless Ready</b></td>
-    <td>Deploy to AWS Lambda, Google Cloud Functions, Azure Functions, Vercel, and Netlify</td>
-  </tr>
-  <tr>
-    <td><b>🔌 Plugin System</b></td>
-    <td>Extend and customize functionality with a powerful plugin architecture</td>
-  </tr>
-</table>
+### Core Functionality
+- **🔄 Simple API Creation**: Transform any Python function into an API endpoint with a single decorator
+- **⚡ Full Async Support**: Native support for async/await throughout the entire framework
+- **🧩 Extensible Architecture**: Modular design allows for easy customization and extension
 
-## 📦 Installation
+### Middleware & Processing
+- **🔄 Middleware System**: Comprehensive middleware architecture for request/response processing
+- **🔄 Request/Response Hooks**: Customize request handling and response generation
+- **📦 Content Negotiation**: Automatic content type negotiation and serialization
 
-<details open>
-<summary><b>Standard Installation</b></summary>
+### Security Features
+- **🔒 Authentication**: JWT, API key, Basic auth, OAuth2 support built-in
+- **🛡️ Protection**: CORS, CSRF, XSS protection mechanisms
+- **🔐 Security Headers**: CSP, HSTS, and other security headers
+- **🔍 Rate Limiting**: Configurable rate limiting to prevent abuse
+
+### Performance Optimizations
+- **⚡ Caching**: Multi-level caching system (memory, Redis, file)
+- **🔌 Connection Pooling**: Efficient database and HTTP connection management
+- **🔄 Request Coalescing**: Combine duplicate requests to reduce load
+- **📦 Batch Processing**: Process multiple requests efficiently
+
+### Documentation & Monitoring
+- **📚 API Docs**: Automatic OpenAPI documentation generation
+- **📊 Metrics**: Built-in metrics collection with Prometheus integration
+- **📈 Monitoring**: Grafana dashboards for visualization
+- **🚨 Alerting**: Pre-configured alerts for common issues
+
+### Deployment Options
+- **☁️ Serverless**: Deploy to AWS Lambda, Azure Functions, GCP Functions
+- **🌐 Platforms**: Ready for Vercel, Netlify, and other platforms
+- **🐳 Docker**: Containerization support with Docker and Docker Compose
+- **🚀 CI/CD**: GitHub Actions workflows for testing and deployment
+
+## 📥 Installation
+
+### Using pip (Recommended)
 
 ```bash
 pip install apifrom
 ```
-</details>
 
-<details>
-<summary><b>With Optional Dependencies</b></summary>
+### Using Poetry
 
 ```bash
-# With database support (SQLAlchemy, PostgreSQL, MySQL, SQLite)
-pip install "apifrom[database]"
-
-# With caching support (Redis)
-pip install "apifrom[cache]"
-
-# With monitoring support (Prometheus)
-pip install "apifrom[monitoring]"
-
-# With development tools
-pip install "apifrom[dev]"
-
-# With all optional dependencies
-pip install "apifrom[all]"
+poetry add apifrom
 ```
-</details>
 
-<details>
-<summary><b>From Source</b></summary>
+### From Source
 
 ```bash
 git clone https://github.com/sc4rfurry/apifrom.git
 cd apifrom
 pip install -e .
 ```
-</details>
 
-## 🏁 Quick Start
+### Using Docker
 
-Create a file named `app.py`:
+```bash
+docker pull apifrom/apifrom:latest
+docker run -p 8000:8000 apifrom/apifrom:latest
+```
+
+## 🚀 Quick Start
+
+### Basic API
 
 ```python
-from apifrom import API, api
+from apifrom import APIApp
 
-# Create an API instance
-app = API(
-    title="My API",
-    description="A simple API created with APIFromAnything",
-    version="1.0.0"
-)
+app = APIApp()
 
-# Define an API endpoint
-@api(route="/hello/{name}", method="GET")
-def hello(name: str, greeting: str = "Hello") -> dict:
-    """
-    Say hello to someone.
-    
-    Args:
-        name: The name to greet
-        greeting: The greeting to use (default: "Hello")
-        
-    Returns:
-        A greeting message
-    """
-    return {"message": f"{greeting}, {name}!"}
+@app.api("/hello/{name}")
+def hello(name: str):
+    return {"message": f"Hello, {name}!"}
 
-# Run the API server
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run()
 ```
 
-Run the application:
-
-```bash
-python app.py
-```
-
-Test the API:
-
-```bash
-curl "http://localhost:8000/hello/World?greeting=Hi"
-# {"message": "Hi, World!"}
-```
-
-Or visit the automatic Swagger documentation at `http://localhost:8000/docs`.
-
-## 💡 Real-World Use Cases
-
-<details>
-<summary><b>Microservice Architecture</b></summary>
-
-APIFromAnything is perfect for building microservices that need to expose REST APIs. Its lightweight nature and high performance make it ideal for containerized environments.
+### Async API
 
 ```python
-from apifrom import API, api
-from apifrom.middleware import CORSMiddleware
-from services import OrderService
+from apifrom import APIApp
 
-app = API(title="Order Service")
+app = APIApp()
 
-# Add CORS middleware for frontend integration
-app.add_middleware(
-    CORSMiddleware(
-        allow_origins=["https://frontend.example.com"],
-        allow_methods=["GET", "POST", "PUT", "DELETE"],
-        allow_headers=["Content-Type", "Authorization"]
-    )
-)
+@app.api("/hello/{name}")
+async def hello(name: str):
+    # Async operations can be performed here
+    return {"message": f"Hello, {name}!"}
 
-# Inject the order service
-order_service = OrderService()
-
-@api(route="/orders", method="GET")
-async def get_orders(user_id: str = None, status: str = None):
-    """Get orders with optional filtering."""
-    return await order_service.get_orders(user_id=user_id, status=status)
-
-@api(route="/orders/{order_id}", method="GET")
-async def get_order(order_id: str):
-    """Get a specific order by ID."""
-    return await order_service.get_order(order_id)
-
-@api(route="/orders", method="POST")
-async def create_order(user_id: str, items: list, shipping_address: dict):
-    """Create a new order."""
-    return await order_service.create_order(
-        user_id=user_id,
-        items=items,
-        shipping_address=shipping_address
-    )
+if __name__ == "__main__":
+    app.run()
 ```
-</details>
 
-<details>
-<summary><b>Data Science API</b></summary>
-
-Expose machine learning models as APIs with minimal effort:
+### With Middleware
 
 ```python
-from apifrom import API, api
-import joblib
-import numpy as np
+from apifrom import APIApp
+from apifrom.middleware import CORSMiddleware, LoggingMiddleware
 
-app = API(title="ML Model API")
+app = APIApp()
 
-# Load the pre-trained model
-model = joblib.load("model.pkl")
+# Add middleware
+app.add_middleware(CORSMiddleware, allow_origins=["*"])
+app.add_middleware(LoggingMiddleware)
 
-@api(route="/predict", method="POST")
-def predict(features: list) -> dict:
-    """
-    Make a prediction using the pre-trained model.
-    
-    Args:
-        features: List of numerical features
-        
-    Returns:
-        Prediction result
-    """
-    # Convert to numpy array and reshape for single sample
-    X = np.array(features).reshape(1, -1)
-    
-    # Make prediction
-    prediction = model.predict(X)[0]
-    probability = model.predict_proba(X)[0].max()
-    
-    return {
-        "prediction": int(prediction),
-        "probability": float(probability),
-        "features": features
-    }
+@app.api("/hello/{name}")
+async def hello(name: str):
+    return {"message": f"Hello, {name}!"}
+
+if __name__ == "__main__":
+    app.run()
 ```
-</details>
 
-<details>
-<summary><b>API Gateway</b></summary>
+## 📝 Examples
 
-Create an API gateway that routes requests to different services:
+### RESTful API
 
 ```python
-from apifrom import API, api
-from apifrom.middleware import RateLimitMiddleware
-import httpx
+from apifrom import APIApp
+from apifrom.security import JWTAuth
 
-app = API(title="API Gateway")
+app = APIApp()
+auth = JWTAuth(secret_key="your-secret-key")
 
-# Add rate limiting
-app.add_middleware(
-    RateLimitMiddleware(
-        limit=100,  # 100 requests per minute
-        window=60
-    )
-)
+# User database (in-memory for example)
+users = {}
 
-# Service endpoints
-SERVICES = {
-    "users": "http://user-service:8001",
-    "orders": "http://order-service:8002",
-    "products": "http://product-service:8003"
-}
+@app.api("/users", methods=["POST"])
+async def create_user(username: str, email: str, password: str):
+    user_id = len(users) + 1
+    users[user_id] = {"id": user_id, "username": username, "email": email}
+    return {"id": user_id, "username": username, "email": email}
 
-@api(route="/{service}/{path:path}", method=["GET", "POST", "PUT", "DELETE"])
-async def gateway(request, service: str, path: str):
-    """
-    Gateway endpoint that routes requests to the appropriate service.
-    """
-    if service not in SERVICES:
-        return {"error": f"Service '{service}' not found"}, 404
-    
-    # Forward the request to the appropriate service
-    async with httpx.AsyncClient() as client:
-        service_url = f"{SERVICES[service]}/{path}"
-        
-        # Forward the request with the same method, headers, and body
-        response = await client.request(
-            method=request.method,
-            url=service_url,
-            headers=request.headers,
-            params=request.query_params,
-            json=await request.json() if request.body else None
+@app.api("/users/{user_id}", methods=["GET"])
+@auth.requires_auth
+async def get_user(user_id: int):
+    if user_id not in users:
+        return {"error": "User not found"}, 404
+    return users[user_id]
+
+@app.api("/users", methods=["GET"])
+@auth.requires_auth
+async def list_users():
+    return list(users.values())
+
+if __name__ == "__main__":
+    app.run()
+```
+
+### With Caching
+
+```python
+from apifrom import APIApp
+from apifrom.cache import MemoryCache
+
+app = APIApp()
+cache = MemoryCache()
+
+@app.api("/expensive-operation")
+@cache.cached(ttl=300)  # Cache for 5 minutes
+async def expensive_operation():
+    # Simulate expensive operation
+    import time
+    time.sleep(2)
+    return {"result": "This was expensive to calculate"}
+
+if __name__ == "__main__":
+    app.run()
+```
+
+### With Database
+
+```python
+from apifrom import APIApp
+from apifrom.db import Database
+
+app = APIApp()
+db = Database("sqlite:///app.db")
+
+@app.api("/posts", methods=["GET"])
+async def get_posts():
+    async with db.connection() as conn:
+        posts = await conn.fetch("SELECT * FROM posts")
+    return {"posts": posts}
+
+@app.api("/posts", methods=["POST"])
+async def create_post(title: str, content: str):
+    async with db.connection() as conn:
+        post_id = await conn.execute(
+            "INSERT INTO posts (title, content) VALUES (?, ?)",
+            title, content
         )
-        
-        # Return the response from the service
-        return response.json(), response.status_code
+    return {"id": post_id, "title": title, "content": content}
+
+if __name__ == "__main__":
+    app.run()
 ```
-</details>
+
+### Example Directory
+
+The project includes a comprehensive set of examples in the `examples/` directory:
+
+| Example | Description |
+|---------|-------------|
+| `simple_api.py` | Basic API with simple endpoints |
+| `async_api.py` | Demonstrates async/await functionality |
+| `combined_example.py` | Comprehensive example with multiple features |
+| `security_api.py` | Shows various security features |
+| `web_decorator_example_updated.py` | Demonstrates the web decorator for HTML endpoints |
+| `database_api.py` | Database integration example |
+| `cached_api.py` | Caching implementation |
+| `cors_api.py` | CORS middleware usage |
+| `csrf_protected_api.py` | CSRF protection |
+| `rate_limited_api.py` | Rate limiting functionality |
+| `monitoring_api.py` | Metrics and monitoring |
+| `serverless_api.py` | Serverless deployment |
+| `vercel_serverless_api.py` | Vercel-specific deployment |
+| `netlify_functions_api.py` | Netlify-specific deployment |
+| `file_upload_api.py` | File upload handling |
+| `error_handling_api.py` | Error handling and validation |
+| `pagination_api.py` | Pagination implementation |
+| `batch_processing_api.py` | Batch processing for performance |
+| `advanced_caching_api.py` | Advanced caching strategies |
+| `plugin_api.py` | Plugin system usage |
+| `advanced_plugin_api.py` | Advanced plugin development |
+
+To run any example:
+
+```bash
+# Navigate to the examples directory
+cd examples
+
+# Run an example
+python simple_api.py
+```
+
+## 🏗️ Architecture
+
+APIFromAnything follows a modular architecture designed for flexibility and extensibility:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                      APIFromAnything                     │
+├─────────────┬─────────────┬───────────────┬─────────────┤
+│   Routing   │  Middleware │   Security    │ Performance │
+├─────────────┼─────────────┼───────────────┼─────────────┤
+│ HTTP Server │   Database  │ Documentation │  Monitoring │
+└─────────────┴─────────────┴───────────────┴─────────────┘
+```
+
+- **Core**: The central component that manages the application lifecycle
+- **Routing**: Maps URLs to handler functions
+- **Middleware**: Processes requests and responses
+- **Security**: Handles authentication, authorization, and protection
+- **Performance**: Optimizes API performance
+- **HTTP Server**: Manages HTTP connections
+- **Database**: Provides database connectivity
+- **Documentation**: Generates API documentation
+- **Monitoring**: Collects and exposes metrics
+
+## 🔄 Middleware
+
+APIFromAnything includes a comprehensive middleware system:
+
+| Middleware | Description |
+|------------|-------------|
+| `CORSMiddleware` | Handles Cross-Origin Resource Sharing |
+| `CSRFMiddleware` | Protects against Cross-Site Request Forgery |
+| `SecurityHeadersMiddleware` | Adds security headers to responses |
+| `RateLimitingMiddleware` | Limits request rates |
+| `CacheMiddleware` | Caches responses |
+| `LoggingMiddleware` | Logs requests and responses |
+| `CompressionMiddleware` | Compresses response data |
+| `AuthenticationMiddleware` | Handles authentication |
+
+Example:
+
+```python
+from apifrom import APIApp
+from apifrom.middleware import CORSMiddleware, SecurityHeadersMiddleware
+
+app = APIApp()
+app.add_middleware(CORSMiddleware, allow_origins=["https://example.com"])
+app.add_middleware(SecurityHeadersMiddleware)
+```
+
+## 🔒 Security
+
+APIFromAnything provides comprehensive security features:
+
+### Authentication
+
+```python
+from apifrom import APIApp
+from apifrom.security import JWTAuth
+
+app = APIApp()
+auth = JWTAuth(secret_key="your-secret-key")
+
+@app.api("/protected")
+@auth.requires_auth
+async def protected():
+    return {"message": "This is protected"}
+```
+
+### CORS Protection
+
+```python
+from apifrom import APIApp
+from apifrom.middleware import CORSMiddleware
+
+app = APIApp()
+app.add_middleware(CORSMiddleware, 
+                  allow_origins=["https://example.com"],
+                  allow_methods=["GET", "POST"],
+                  allow_headers=["Content-Type", "Authorization"])
+```
+
+### Rate Limiting
+
+```python
+from apifrom import APIApp
+from apifrom.middleware import RateLimitingMiddleware
+
+app = APIApp()
+app.add_middleware(RateLimitingMiddleware, 
+                  limit=100,
+                  period=60,  # 100 requests per minute
+                  key_func=lambda request: request.client.host)
+```
+
+## ⚡ Performance
+
+APIFromAnything includes several performance optimization features:
+
+### Caching
+
+```python
+from apifrom import APIApp
+from apifrom.cache import RedisCache
+
+app = APIApp()
+cache = RedisCache(url="redis://localhost:6379/0")
+
+@app.api("/expensive-operation")
+@cache.cached(ttl=300)  # Cache for 5 minutes
+async def expensive_operation():
+    # Expensive operation here
+    return {"result": "Expensive calculation"}
+```
+
+### Connection Pooling
+
+```python
+from apifrom import APIApp
+from apifrom.db import Database
+
+app = APIApp()
+db = Database("postgresql://user:password@localhost/db",
+             min_size=5,
+             max_size=20)
+
+@app.api("/users")
+async def get_users():
+    async with db.connection() as conn:
+        # Connection is taken from the pool
+        users = await conn.fetch("SELECT * FROM users")
+    # Connection is returned to the pool
+    return {"users": users}
+```
+
+### Request Coalescing
+
+```python
+from apifrom import APIApp
+from apifrom.performance import coalesce_requests
+
+app = APIApp()
+
+@app.api("/data/{id}")
+@coalesce_requests
+async def get_data(id: str):
+    # If multiple requests for the same ID arrive simultaneously,
+    # only one database query will be executed
+    # and the result will be shared among all requests
+    return {"data": f"Data for {id}"}
+```
+
+## 📊 Monitoring
+
+APIFromAnything includes built-in monitoring capabilities:
+
+### Prometheus Metrics
+
+```python
+from apifrom import APIApp
+from apifrom.monitoring import setup_monitoring
+
+app = APIApp()
+setup_monitoring(app)
+
+# Metrics will be available at /metrics
+```
+
+### Custom Metrics
+
+```python
+from apifrom import APIApp
+from apifrom.monitoring import Counter, Histogram
+
+app = APIApp()
+
+# Define custom metrics
+request_counter = Counter("app_requests_total", "Total requests")
+request_latency = Histogram("app_request_latency_seconds", "Request latency")
+
+@app.api("/hello")
+async def hello():
+    # Increment counter
+    request_counter.inc()
+    
+    # Measure latency
+    with request_latency.time():
+        # Your code here
+        return {"message": "Hello, World!"}
+```
+
+## 🚀 Deployment
+
+### GitHub Actions
+
+This project includes several GitHub Actions workflows for continuous integration and deployment:
+
+- **Python Package**: Tests the code and publishes the package to PyPI when a new tag is pushed
+- **Documentation**: Builds and deploys the documentation to GitHub Pages
+- **ReadTheDocs**: Triggers a build on ReadTheDocs when documentation files are updated
+- **Docker**: Builds and publishes Docker images to Docker Hub and GitHub Container Registry
+
+To set up these workflows:
+
+1. Push your code to a GitHub repository
+2. Set up the necessary secrets in your repository settings:
+   - `PYPI_API_TOKEN`: API token for publishing to PyPI
+   - `DOCKERHUB_USERNAME`: Your Docker Hub username
+   - `DOCKERHUB_TOKEN`: Your Docker Hub access token
+   - `RTDS_WEBHOOK_URL`: ReadTheDocs webhook URL
+   - `RTDS_WEBHOOK_TOKEN`: ReadTheDocs webhook token
+
+For detailed instructions, see the [GitHub and ReadTheDocs Deployment Guide](https://apifrom.readthedocs.io/en/latest/github_deployment/).
+
+### Docker
+
+```bash
+# Build the Docker image
+docker build -t apifrom/apifrom .
+
+# Run the Docker container
+docker run -p 8000:8000 apifrom/apifrom
+```
+
+### Docker Compose
+
+```bash
+# Start all services
+docker-compose up -d
+
+# Stop all services
+docker-compose down
+```
+
+### Serverless
+
+#### AWS Lambda
+
+```python
+# handler.py
+from apifrom import APIApp
+from apifrom.adapters import LambdaAdapter
+
+app = APIApp()
+
+@app.api("/hello/{name}")
+async def hello(name: str):
+    return {"message": f"Hello, {name}!"}
+
+# Lambda handler
+handler = LambdaAdapter(app).handler
+```
+
+#### Vercel
+
+```python
+# api/index.py
+from apifrom import APIApp
+from apifrom.adapters import VercelAdapter
+
+app = APIApp()
+
+@app.api("/hello/{name}")
+async def hello(name: str):
+    return {"message": f"Hello, {name}!"}
+
+# Vercel handler
+handler = VercelAdapter(app).handler
+```
 
 ## 📚 Documentation
 
-<details>
-<summary><b>For more detailed documentation, please visit <a href="/docs/">the documentation site</a>.</b></summary>
+For full documentation, visit [apifrom.readthedocs.io](https://apifrom.readthedocs.io/).
 
 The documentation includes:
 
-- **Getting Started Guide**: Quick start and basic concepts
-- **API Reference**: Detailed reference for all modules and functions
-- **Tutorials**: Step-by-step guides for common tasks
-- **Examples**: Complete examples for various use cases
-- **Deployment Guide**: How to deploy to different environments
-- **Migration Guide**: How to migrate from other frameworks
-- **FAQ**: Frequently asked questions
-</details>
+- **Getting Started Guide**: Quick introduction to APIFromAnything
+- **Core Concepts**: Detailed explanation of the framework's architecture
+- **API Reference**: Complete reference for all classes and functions
+- **Middleware Guide**: How to use and create middleware
+- **Security Guide**: How to secure your API
+- **Performance Guide**: How to optimize your API's performance
+- **Deployment Guide**: How to deploy your API to various platforms
+- **Examples**: Comprehensive examples for common use cases
 
-## 🤝 Contributing
+## 👥 Contributing
 
-<details>
-<summary><b>We welcome contributions!</b></summary>
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/awesome-feature`
-3. Commit your changes: `git commit -am 'Add awesome feature'`
-4. Push to the branch: `git push origin feature/awesome-feature`
-5. Submit a pull request
-
-Please make sure to follow our [code of conduct](CODE_OF_CONDUCT.md) and [contribution guidelines](CONTRIBUTING.md).
-</details>
-
-<details>
-<summary><b>Development Setup</b></summary>
+### Development Setup
 
 ```bash
 # Clone the repository
 git clone https://github.com/sc4rfurry/apifrom.git
 cd apifrom
 
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install development dependencies
+# Install dependencies
 pip install -e ".[dev]"
 
 # Run tests
 pytest
-
-# Run linters
-black .
-flake8
-mypy .
 ```
-</details>
+
+### Code Style
+
+We use [Black](https://github.com/psf/black) for code formatting and [isort](https://github.com/PyCQA/isort) for import sorting:
+
+```bash
+# Format code
+black .
+
+# Sort imports
+isort .
+```
+
+### Testing
+
+We use [pytest](https://docs.pytest.org/) for testing:
+
+```bash
+# Run all tests
+pytest
+
+# Run tests with coverage
+pytest --cov=apifrom
+
+# Run specific tests
+pytest tests/test_api.py
+```
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-<details>
-<summary><b>MIT License</b></summary>
+---
 
-```
-MIT License
-
-Copyright (c) 2023 sc4rfurry
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-</details>
-
-## 👥 Community
-
-<div align="center">
-  <table>
-    <tr>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/sc4rfurry/apifrom/discussions">
-          <img src="https://img.shields.io/badge/GitHub-Discussions-181717?style=for-the-badge&logo=github" alt="GitHub Discussions" />
-        </a>
-        <p>Participate in discussions and share your ideas</p>
-      </td>
-      <td align="center">
-        <a href="/docs/">
-          <img src="https://img.shields.io/badge/Documentation-Read%20the%20Docs-8CA1AF?style=for-the-badge&logo=read-the-docs" alt="Read the Docs" />
-        </a>
-        <p>Read our comprehensive documentation</p>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<hr>
 <div align="center">
   <p>Made with ❤️ by the sc4rfurry</p>
   <p>
-    <a href="https://github.com/sc4rfurry/apifrom/stargazers">
-      <img src="https://img.shields.io/github/stars/apifrom/apifrom?style=social" alt="GitHub stars" />
-    </a>
-    <a href="https://github.com/sc4rfurry/apifrom/network/members">
-      <img src="https://img.shields.io/github/forks/apifrom/apifrom?style=social" alt="GitHub forks" />
-    </a>
-    <a href="https://github.com/sc4rfurry/apifrom/watchers">
-      <img src="https://img.shields.io/github/watchers/apifrom/apifrom?style=social" alt="GitHub watchers" />
-    </a>
+    <a href="https://github.com/sc4rfurry/apifrom">GitHub</a> •
+    <a href="https://pypi.org/project/apifrom/">PyPI</a> •
+    <a href="https://apifrom.readthedocs.io/">Documentation</a>
   </p>
 </div>

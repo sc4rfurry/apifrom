@@ -1,0 +1,56 @@
+# Core dependencies
+fastapi==0.95.0
+uvicorn[standard]==0.21.1
+pydantic==1.10.7
+starlette==0.26.1
+python-dotenv==1.0.0
+
+# Database
+sqlalchemy==2.0.9
+alembic==1.10.3
+asyncpg==0.27.0
+databases==0.7.0
+
+# Caching
+redis==4.5.4
+aioredis==2.0.1
+
+# Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Monitoring and observability
+prometheus-client==0.16.0
+sentry-sdk==1.19.1
+opentelemetry-api==1.15.0
+opentelemetry-sdk==1.15.0
+opentelemetry-exporter-prometheus==1.15.0
+
+# Testing
+pytest==7.3.1
+pytest-asyncio==0.21.0
+httpx==0.24.0
+aioresponses==0.7.4
+
+# Development
+black==23.3.0
+isort==5.12.0
+flake8==6.0.0
+mypy==1.2.0
+
+# Documentation
+mkdocs==1.4.2
+mkdocs-material==9.1.5
+mkdocstrings==0.21.2
+
+# Optional dependencies - Serialization
+msgpack>=1.0.3
+ujson>=5.3.0
+
+# Optional integrations
+flask>=2.0.0; extra == "flask"
+django>=4.0.0; extra == "django"
+
+# Added psutil for health check functionality
+psutil>=5.9.0 

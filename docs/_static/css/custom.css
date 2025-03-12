@@ -1,0 +1,207 @@
+/* Custom styles for APIFromAnything documentation */
+
+/* Improve code block styling */
+.highlight {
+    background: #f8f8f8;
+    border-radius: 5px;
+    border: 1px solid #e1e4e5;
+    margin: 1em 0;
+    padding: 1em;
+}
+
+/* Improve table styling */
+.wy-table-responsive table td, .wy-table-responsive table th {
+    white-space: normal;
+}
+
+.wy-table-responsive {
+    margin-bottom: 24px;
+    max-width: 100%;
+    overflow: visible;
+}
+
+/* Improve heading styling */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: 2em;
+    color: #2980B9;
+    border-bottom: 1px solid #e1e4e5;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #2980B9;
+    border-bottom: 1px solid #e1e4e5;
+    padding-bottom: 0.3em;
+}
+
+h3 {
+    font-size: 1.3em;
+    color: #2980B9;
+}
+
+h4 {
+    font-size: 1.2em;
+    color: #2980B9;
+}
+
+/* Improve link styling */
+a {
+    color: #2980B9;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #3091d1;
+    text-decoration: underline;
+}
+
+/* Improve note and warning styling */
+.admonition {
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admonition.note {
+    background-color: #f0f7fb;
+    border-left: 6px solid #2980B9;
+}
+
+.admonition.warning {
+    background-color: #fff8f8;
+    border-left: 6px solid #E74C3C;
+}
+
+.admonition.tip {
+    background-color: #f5fff0;
+    border-left: 6px solid #27AE60;
+}
+
+.admonition.important {
+    background-color: #fffbf0;
+    border-left: 6px solid #F39C12;
+}
+
+/* Improve code inline styling */
+code.literal {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e4e5;
+    border-radius: 3px;
+    color: #E74C3C;
+    font-size: 90%;
+    padding: 2px 4px;
+}
+
+/* Improve navigation styling */
+.wy-menu-vertical li.current {
+    background-color: #f8f8f8;
+}
+
+.wy-menu-vertical li.current > a {
+    color: #2980B9;
+    font-weight: bold;
+}
+
+/* Improve search box styling */
+.wy-side-nav-search {
+    background-color: #2980B9;
+}
+
+.wy-side-nav-search input[type="text"] {
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Improve footer styling */
+footer {
+    color: #999;
+    font-size: 0.9em;
+}
+
+/* Improve blockquote styling */
+blockquote {
+    background-color: #f8f8f8;
+    border-left: 4px solid #2980B9;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+}
+
+/* Improve list styling */
+ul, ol {
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+/* Improve definition list styling */
+dl {
+    margin-bottom: 1em;
+}
+
+dt {
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+dd {
+    margin-left: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Improve API reference styling */
+.class, .function, .method {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #e1e4e5;
+}
+
+.class .property, .class .attribute {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+/* Improve parameter styling */
+.field-list {
+    margin-bottom: 1em;
+}
+
+.field-list dt {
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+.field-list dd {
+    margin-left: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Improve mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .wy-nav-content-wrap {
+        margin-left: 0;
+    }
+    
+    .wy-nav-side {
+        width: 300px;
+        left: -300px;
+    }
+    
+    .wy-nav-content {
+        margin-left: 0;
+        max-width: 100%;
+    }
+    
+    .wy-nav-side.shift {
+        width: 85%;
+        left: 0;
+    }
+} 

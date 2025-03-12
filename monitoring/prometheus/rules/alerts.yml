@@ -1,0 +1,74 @@
+groups:
+  - name: api_alerts
+    rules:
+      - alert: HighRequestLatency
+        expr: histogram_quantile(0.95, sum(rate(apifrom_request_latency_seconds_bucket[5m])) by (le, endpoint)) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High request latency on {{ $labels.endpoint }}"
+          description: "95th percentile of request latency is above 1s for endpoint {{ $labels.endpoint }} (current value: {{ $value }}s)"
+
+      - alert: HighErrorRate
+        expr: sum(rate(apifrom_error_count[5m])) by (endpoint) / sum(rate(apifrom_request_count[5m])) by (endpoint) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate on {{ $labels.endpoint }}"
+          description: "Error rate is above 5% for endpoint {{ $labels.endpoint }} (current value: {{ $value | humanizePercentage }})"
+
+      - alert: CriticalErrorRate
+        expr: sum(rate(apifrom_error_count[5m])) by (endpoint) / sum(rate(apifrom_request_count[5m])) by (endpoint) > 0.2
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical error rate on {{ $labels.endpoint }}"
+          description: "Error rate is above 20% for endpoint {{ $labels.endpoint }} (current value: {{ $value | humanizePercentage }})"
+
+      - alert: HighRequestRate
+        expr: sum(rate(apifrom_request_count[5m])) by (endpoint) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High request rate on {{ $labels.endpoint }}"
+          description: "Request rate is above 100 requests per second for endpoint {{ $labels.endpoint }} (current value: {{ $value }} req/s)"
+
+      - alert: HighDatabaseLatency
+        expr: histogram_quantile(0.95, sum(rate(apifrom_db_query_latency_seconds_bucket[5m])) by (le, operation, table)) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High database query latency for {{ $labels.operation }} on {{ $labels.table }}"
+          description: "95th percentile of database query latency is above 0.5s for {{ $labels.operation }} on {{ $labels.table }} (current value: {{ $value }}s)"
+
+      - alert: HighCacheMissRate
+        expr: sum(rate(apifrom_cache_miss_count[5m])) by (cache_name) / (sum(rate(apifrom_cache_hit_count[5m])) by (cache_name) + sum(rate(apifrom_cache_miss_count[5m])) by (cache_name)) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High cache miss rate for {{ $labels.cache_name }}"
+          description: "Cache miss rate is above 80% for {{ $labels.cache_name }} (current value: {{ $value | humanizePercentage }})"
+
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} down"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes / 1024 / 1024 > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is above 1GB on {{ $labels.instance }} (current value: {{ $value | humanizeMB }})" 

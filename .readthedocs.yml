@@ -28,6 +28,3 @@ python:
       path: .
       extra_requirements:
         - docs
-
-mkdocs:
-  configuration: mkdocs.yml 

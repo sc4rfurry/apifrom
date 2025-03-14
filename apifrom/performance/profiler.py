@@ -321,13 +321,13 @@ class APIProfiler:
                             self.profiles[endpoint_name]["response_times"].append(response_time)
                             
                             # Update function stats
-                            for func_name, time_ms in function_stats.items():
-                                if func_name in self.profiles[endpoint_name]["function_stats"]:
-                                    self.profiles[endpoint_name]["function_stats"][func_name] = (
-                                        (self.profiles[endpoint_name]["function_stats"][func_name] + time_ms) / 2
+                            for func, time_ms in function_stats.items():
+                                if func in self.profiles[endpoint_name]["function_stats"]:
+                                    self.profiles[endpoint_name]["function_stats"][func] = (
+                                        (self.profiles[endpoint_name]["function_stats"][func] + time_ms) / 2
                                     )
                                 else:
-                                    self.profiles[endpoint_name]["function_stats"][func_name] = time_ms
+                                    self.profiles[endpoint_name]["function_stats"][func] = time_ms
                         
                         # Clear context
                         _profiler_ctx.set(None)
@@ -396,13 +396,13 @@ class APIProfiler:
                             self.profiles[endpoint_name]["response_times"].append(response_time)
                             
                             # Update function stats
-                            for func_name, time_ms in function_stats.items():
-                                if func_name in self.profiles[endpoint_name]["function_stats"]:
-                                    self.profiles[endpoint_name]["function_stats"][func_name] = (
-                                        (self.profiles[endpoint_name]["function_stats"][func_name] + time_ms) / 2
+                            for func, time_ms in function_stats.items():
+                                if func in self.profiles[endpoint_name]["function_stats"]:
+                                    self.profiles[endpoint_name]["function_stats"][func] = (
+                                        (self.profiles[endpoint_name]["function_stats"][func] + time_ms) / 2
                                     )
                                 else:
-                                    self.profiles[endpoint_name]["function_stats"][func_name] = time_ms
+                                    self.profiles[endpoint_name]["function_stats"][func] = time_ms
                         
                         # Clear context
                         _profiler_ctx.set(None)

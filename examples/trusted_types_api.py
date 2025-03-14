@@ -30,14 +30,12 @@ def validate_script(script: str) -> str:
     return script
 
 # Add an HTML handler that sanitizes HTML
-import bleach
-
 def sanitize_html(html: str) -> str:
-    # Use bleach to sanitize HTML content
-    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'span', 'div']
-    allowed_attributes = bleach.sanitizer.ALLOWED_ATTRIBUTES
-    sanitized_html = bleach.clean(html, tags=allowed_tags, attributes=allowed_attributes, strip=True)
-    return sanitized_html
+    # Simple sanitization that removes script tags
+    import re
+    html = re.sub(r'<script\b[^<]*(?:(?!</script>)<[^<]*)*</script>', '', html, flags=re.IGNORECASE)
+    html = re.sub(r'javascript:', '', html, flags=re.IGNORECASE)
+    return html
 
 # Add handlers to the policy
 custom_policy.add_script_handler(validate_script)

@@ -57,7 +57,41 @@ class TestTrustedTypesPolicy(unittest.TestCase):
         """
         # Add an HTML handler
         def sanitize_html(html: str) -> str:
-            return re.sub(r'<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>', '', html, flags=re.IGNORECASE)
+            # Use a safer approach to remove script tags
+            try:
+                # Try to use a proper HTML parser if available
+                from html.parser import HTMLParser
+                from io import StringIO
+                
+                class ScriptFilter(HTMLParser):
+                    def __init__(self):
+                        super().__init__()
+                        self.result = StringIO()
+                        self.skip_content = False
+                        
+                    def handle_starttag(self, tag, attrs):
+                        if tag.lower() == 'script':
+                            self.skip_content = True
+                        else:
+                            self.result.write(f"<{tag}>")
+                    
+                    def handle_endtag(self, tag):
+                        if tag.lower() == 'script':
+                            self.skip_content = False
+                        else:
+                            self.result.write(f"</{tag}>")
+                    
+                    def handle_data(self, data):
+                        if not self.skip_content:
+                            self.result.write(data)
+                
+                parser = ScriptFilter()
+                parser.feed(html)
+                return parser.result.getvalue()
+                
+            except (ImportError, Exception):
+                # Fallback to regex if HTML parser is not available or fails
+                return re.sub(r'<\s*script\b[^>]*>.*?<\s*/\s*script\s*>', '', html, flags=re.IGNORECASE | re.DOTALL)
         
         self.policy.add_html_handler(sanitize_html)
         

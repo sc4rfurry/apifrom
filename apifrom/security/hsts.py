@@ -261,6 +261,20 @@ class HSTSPreloadChecker:
         Returns:
             Instructions for submitting the domain
         """
+        # Validate and sanitize the domain to prevent injection attacks
+        import re
+        
+        # Ensure domain is a valid domain name
+        if not domain or not isinstance(domain, str):
+            domain = "example.com"  # Default fallback
+        
+        # Strict domain validation pattern
+        domain_pattern = re.compile(r'^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$', re.IGNORECASE)
+        
+        if not domain_pattern.match(domain):
+            # If domain doesn't match the pattern, use a safe default
+            domain = "example.com"
+        
         return f"""
 To submit {domain} to the HSTS preload list:
 

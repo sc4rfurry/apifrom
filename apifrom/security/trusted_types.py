@@ -380,9 +380,59 @@ class TrustedTypesBuilder:
         def sanitize_html(html: str) -> str:
             # This is a simple sanitization that removes script tags
             # In a real application, you would use a more robust sanitizer
-            html = re.sub(r'<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>', '', html, flags=re.IGNORECASE)
-            html = re.sub(r'javascript:', '', html, flags=re.IGNORECASE)
-            return html
+            # Use a safer approach to remove script tags
+            try:
+                # Try to use a proper HTML parser if available
+                from html.parser import HTMLParser
+                from io import StringIO
+                
+                class ScriptFilter(HTMLParser):
+                    def __init__(self):
+                        super().__init__()
+                        self.result = StringIO()
+                        self.skip_content = False
+                        
+                    def handle_starttag(self, tag, attrs):
+                        if tag.lower() == 'script':
+                            self.skip_content = True
+                        else:
+                            # Filter out javascript: attributes
+                            filtered_attrs = []
+                            for name, value in attrs:
+                                if value and ('javascript:' not in value.lower()):
+                                    filtered_attrs.append((name, value))
+                            
+                            if filtered_attrs:
+                                attr_str = ' ' + ' '.join(f'{name}="{value}"' for name, value in filtered_attrs)
+                            else:
+                                attr_str = ''
+                            
+                            self.result.write(f"<{tag}{attr_str}>")
+                    
+                    def handle_endtag(self, tag):
+                        if tag.lower() == 'script':
+                            self.skip_content = False
+                        else:
+                            self.result.write(f"</{tag}>")
+                    
+                    def handle_data(self, data):
+                        if not self.skip_content:
+                            self.result.write(data)
+                
+                parser = ScriptFilter()
+                parser.feed(html)
+                return parser.result.getvalue()
+                
+            except (ImportError, Exception):
+                # Fallback to regex if HTML parser is not available or fails
+                # This is still not perfect but better than the previous regex
+                # First remove script tags and their content
+                html = re.sub(r'<\s*script\b[^>]*>.*?<\s*/\s*script\s*>', '', html, flags=re.IGNORECASE | re.DOTALL)
+                # Then remove any remaining javascript: protocol handlers
+                html = re.sub(r'(javascript|vbscript|data):', 'blocked:', html, flags=re.IGNORECASE)
+                # Remove event handlers
+                html = re.sub(r'\s+on\w+\s*=\s*["\'][^"\']*["\']', '', html, flags=re.IGNORECASE)
+                return html
         
         # Add a URL handler that validates URLs
         def validate_url(url: str) -> str:
@@ -431,9 +481,59 @@ class TrustedTypesBuilder:
         def sanitize_html(html: str) -> str:
             # This is a simple sanitization that removes script tags
             # In a real application, you would use a more robust sanitizer
-            html = re.sub(r'<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>', '', html, flags=re.IGNORECASE)
-            html = re.sub(r'javascript:', '', html, flags=re.IGNORECASE)
-            return html
+            # Use a safer approach to remove script tags
+            try:
+                # Try to use a proper HTML parser if available
+                from html.parser import HTMLParser
+                from io import StringIO
+                
+                class ScriptFilter(HTMLParser):
+                    def __init__(self):
+                        super().__init__()
+                        self.result = StringIO()
+                        self.skip_content = False
+                        
+                    def handle_starttag(self, tag, attrs):
+                        if tag.lower() == 'script':
+                            self.skip_content = True
+                        else:
+                            # Filter out javascript: attributes
+                            filtered_attrs = []
+                            for name, value in attrs:
+                                if value and ('javascript:' not in value.lower()):
+                                    filtered_attrs.append((name, value))
+                            
+                            if filtered_attrs:
+                                attr_str = ' ' + ' '.join(f'{name}="{value}"' for name, value in filtered_attrs)
+                            else:
+                                attr_str = ''
+                            
+                            self.result.write(f"<{tag}{attr_str}>")
+                    
+                    def handle_endtag(self, tag):
+                        if tag.lower() == 'script':
+                            self.skip_content = False
+                        else:
+                            self.result.write(f"</{tag}>")
+                    
+                    def handle_data(self, data):
+                        if not self.skip_content:
+                            self.result.write(data)
+                
+                parser = ScriptFilter()
+                parser.feed(html)
+                return parser.result.getvalue()
+                
+            except (ImportError, Exception):
+                # Fallback to regex if HTML parser is not available or fails
+                # This is still not perfect but better than the previous regex
+                # First remove script tags and their content
+                html = re.sub(r'<\s*script\b[^>]*>.*?<\s*/\s*script\s*>', '', html, flags=re.IGNORECASE | re.DOTALL)
+                # Then remove any remaining javascript: protocol handlers
+                html = re.sub(r'(javascript|vbscript|data):', 'blocked:', html, flags=re.IGNORECASE)
+                # Remove event handlers
+                html = re.sub(r'\s+on\w+\s*=\s*["\'][^"\']*["\']', '', html, flags=re.IGNORECASE)
+                return html
         
         policy.add_html_handler(sanitize_html)
         

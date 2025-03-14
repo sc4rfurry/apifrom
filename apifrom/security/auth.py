@@ -216,7 +216,6 @@ def jwt_required(
             # Get the JWT secret and algorithm
             jwt_secret = secret or DEFAULT_JWT_SECRET
             jwt_algorithm = algorithm or DEFAULT_JWT_ALGORITHM
-            print(f"JWT secret: {jwt_secret}, algorithm: {jwt_algorithm}")
             
             try:
                 # Verify the JWT token

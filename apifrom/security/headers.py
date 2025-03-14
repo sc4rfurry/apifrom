@@ -673,7 +673,7 @@ class XSSFilter:
                 strip=True,
             )
         except ImportError:
-            # If bleach is not available, use a simple regex-based approach
+            # If bleach is not available, use a more secure approach
             # This is not as secure as bleach, but it's better than nothing
             import re
             
@@ -693,8 +693,39 @@ class XSSFilter:
                     sanitized_html = re.sub(f"\\s{attr}=['\"][^'\"]*['\"]", "", sanitized_html, flags=re.IGNORECASE)
             else:
                 # If no allowed tags, just strip all tags but keep the content
-                sanitized_html = re.sub(r"<script\b[^>]*>(.*?)</script>", "", sanitized_html, flags=re.IGNORECASE | re.DOTALL)
-                sanitized_html = re.sub(r"<[^>]*>", "", sanitized_html)
+                try:
+                    # Try to use a proper HTML parser if available
+                    from html.parser import HTMLParser
+                    from io import StringIO
+                    
+                    class TagStripper(HTMLParser):
+                        def __init__(self):
+                            super().__init__()
+                            self.result = StringIO()
+                            self.skip_script_content = False
+                            
+                        def handle_starttag(self, tag, attrs):
+                            if tag.lower() == 'script':
+                                self.skip_script_content = True
+                                
+                        def handle_endtag(self, tag):
+                            if tag.lower() == 'script':
+                                self.skip_script_content = False
+                                
+                        def handle_data(self, data):
+                            if not self.skip_script_content:
+                                self.result.write(data)
+                    
+                    stripper = TagStripper()
+                    stripper.feed(sanitized_html)
+                    sanitized_html = stripper.result.getvalue()
+                    
+                except (ImportError, Exception):
+                    # Fallback to regex if HTML parser is not available or fails
+                    # First remove script tags and their content
+                    sanitized_html = re.sub(r"<script\b[^>]*>.*?</script>", "", sanitized_html, flags=re.IGNORECASE | re.DOTALL)
+                    # Then remove all other tags but keep their content
+                    sanitized_html = re.sub(r"<[^>]*>", "", sanitized_html)
             
             return sanitized_html
     

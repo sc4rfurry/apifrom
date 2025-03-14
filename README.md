@@ -11,28 +11,10 @@
 
 [Documentation](https://apifrom.readthedocs.io/) | [Quick Start](#-quick-start) | [Examples](#-examples) | [Contributing](#-contributing)
 
-![CI](https://github.com/sc4rfurry/apifrom/workflows/CI/badge.svg)
 ![CodeQL](https://github.com/sc4rfurry/apifrom/workflows/CodeQL/badge.svg)
-![ReadTheDocs](https://github.com/sc4rfurry/apifrom/workflows/ReadTheDocs/badge.svg)
+![Dependency Review](https://github.com/sc4rfurry/apifrom/workflows/Dependency%20Review/badge.svg)
 
 </div>
-
-## �� Table of Contents
-
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [Examples](#-examples)
-- [Architecture](#-architecture)
-- [Middleware](#-middleware)
-- [Security](#-security)
-- [Performance](#-performance)
-- [Monitoring](#-monitoring)
-- [Deployment](#-deployment)
-- [Documentation](#-documentation)
-- [Contributing](#-contributing)
-- [License](#-license)
 
 ## 🔍 Overview
 
@@ -515,7 +497,7 @@ handler = VercelAdapter(app).handler
 
 ## 📚 Documentation
 
-For full documentation, visit [apifrom.readthedocs.io](https://apifrom.readthedocs.io/).
+For full documentation, visit [apifrom.readthedocs.io](https://apifrom.readthedocs.io/en/latest/).
 
 The documentation includes:
 
@@ -584,6 +566,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   <p>
     <a href="https://github.com/sc4rfurry/apifrom">GitHub</a> •
     <a href="https://pypi.org/project/apifrom/">PyPI</a> •
-    <a href="https://apifrom.readthedocs.io/">Documentation</a>
+    <a href="https://apifrom.readthedocs.io/en/latest/">Documentation</a>
   </p>
 </div>

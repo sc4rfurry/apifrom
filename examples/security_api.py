@@ -6,7 +6,7 @@ import time
 import uuid
 from typing import Dict, List, Optional
 
-from apifrom import APIApp
+from apifrom import API
 from apifrom.security import JWTAuth, APIKeyAuth, BasicAuth
 from apifrom.middleware import (
     CSRFMiddleware,
@@ -16,7 +16,7 @@ from apifrom.middleware import (
 )
 
 # Create an API instance
-app = APIApp(
+app = API(
     title="Security Example",
     description="An example of using the security features of the APIFromAnything library",
     version="1.0.0"

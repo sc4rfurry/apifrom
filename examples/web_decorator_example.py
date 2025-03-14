@@ -12,12 +12,12 @@ To run this example:
    curl -H "Accept: application/json" http://localhost:8000/users
 """
 
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.web import Web
 from apifrom.server.wsgi import WSGIServer
 
 # Create an API app
-app = APIApp()
+app = API()
 
 # Sample data
 users = [

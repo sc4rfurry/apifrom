@@ -6,13 +6,13 @@ import asyncio
 import logging
 from typing import List, Dict, Optional
 
-from apifrom import APIApp
+from apifrom import API
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
 # Create API instance
-app = APIApp(
+app = API(
     title="Async API Example",
     description="An async API created with APIFromAnything",
     version="1.0.0",

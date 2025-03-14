@@ -9,7 +9,7 @@ import asyncio
 import time
 from typing import Dict, List, Optional
 
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.api import api
 from apifrom.middleware.cache_advanced import (
     AdvancedCacheMiddleware,
@@ -19,7 +19,7 @@ from apifrom.middleware.cache_advanced import (
 )
 
 # Create an API application
-app = APIApp(title="Advanced Caching Example")
+app = API(title="Advanced Caching Example")
 
 # Create a Redis cache backend (will fall back to in-memory if Redis is not available)
 try:

@@ -79,9 +79,9 @@ pip install -e .
 ### Basic API
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 
-app = APIApp()
+app = API()
 
 @app.api("/hello/{name}")
 def hello(name: str):
@@ -94,9 +94,9 @@ if __name__ == "__main__":
 ### Async API
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 
-app = APIApp()
+app = API()
 
 @app.api("/hello/{name}")
 async def hello(name: str):
@@ -110,10 +110,10 @@ if __name__ == "__main__":
 ### With Middleware
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.middleware import CORSMiddleware, LoggingMiddleware
 
-app = APIApp()
+app = API()
 
 # Add middleware
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
@@ -132,10 +132,10 @@ if __name__ == "__main__":
 ### RESTful API
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.security import JWTAuth
 
-app = APIApp()
+app = API()
 auth = JWTAuth(secret_key="your-secret-key")
 
 # User database (in-memory for example)
@@ -166,10 +166,10 @@ if __name__ == "__main__":
 ### With Caching
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.cache import MemoryCache
 
-app = APIApp()
+app = API()
 cache = MemoryCache()
 
 @app.api("/expensive-operation")
@@ -187,10 +187,10 @@ if __name__ == "__main__":
 ### With Database
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.db import Database
 
-app = APIApp()
+app = API()
 db = Database("sqlite:///app.db")
 
 @app.api("/posts", methods=["GET"])
@@ -292,10 +292,10 @@ APIFromAnything includes a comprehensive middleware system:
 Example:
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.middleware import CORSMiddleware, SecurityHeadersMiddleware
 
-app = APIApp()
+app = API()
 app.add_middleware(CORSMiddleware, allow_origins=["https://example.com"])
 app.add_middleware(SecurityHeadersMiddleware)
 ```
@@ -307,10 +307,10 @@ APIFromAnything provides comprehensive security features:
 ### Authentication
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.security import JWTAuth
 
-app = APIApp()
+app = API()
 auth = JWTAuth(secret_key="your-secret-key")
 
 @app.api("/protected")
@@ -322,10 +322,10 @@ async def protected():
 ### CORS Protection
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.middleware import CORSMiddleware
 
-app = APIApp()
+app = API()
 app.add_middleware(CORSMiddleware, 
                   allow_origins=["https://example.com"],
                   allow_methods=["GET", "POST"],
@@ -335,10 +335,10 @@ app.add_middleware(CORSMiddleware,
 ### Rate Limiting
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.middleware import RateLimitingMiddleware
 
-app = APIApp()
+app = API()
 app.add_middleware(RateLimitingMiddleware, 
                   limit=100,
                   period=60,  # 100 requests per minute
@@ -352,10 +352,10 @@ APIFromAnything includes several performance optimization features:
 ### Caching
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.cache import RedisCache
 
-app = APIApp()
+app = API()
 cache = RedisCache(url="redis://localhost:6379/0")
 
 @app.api("/expensive-operation")
@@ -368,10 +368,10 @@ async def expensive_operation():
 ### Connection Pooling
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.db import Database
 
-app = APIApp()
+app = API()
 db = Database("postgresql://user:password@localhost/db",
              min_size=5,
              max_size=20)
@@ -388,10 +388,10 @@ async def get_users():
 ### Request Coalescing
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.performance import coalesce_requests
 
-app = APIApp()
+app = API()
 
 @app.api("/data/{id}")
 @coalesce_requests
@@ -409,10 +409,10 @@ APIFromAnything includes built-in monitoring capabilities:
 ### Prometheus Metrics
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.monitoring import setup_monitoring
 
-app = APIApp()
+app = API()
 setup_monitoring(app)
 
 # Metrics will be available at /metrics
@@ -421,10 +421,10 @@ setup_monitoring(app)
 ### Custom Metrics
 
 ```python
-from apifrom import APIApp
+from apifrom import API
 from apifrom.monitoring import Counter, Histogram
 
-app = APIApp()
+app = API()
 
 # Define custom metrics
 request_counter = Counter("app_requests_total", "Total requests")
@@ -465,10 +465,10 @@ For detailed instructions, see the [GitHub and ReadTheDocs Deployment Guide](htt
 
 ```python
 # handler.py
-from apifrom import APIApp
+from apifrom import API
 from apifrom.adapters import LambdaAdapter
 
-app = APIApp()
+app = API()
 
 @app.api("/hello/{name}")
 async def hello(name: str):
@@ -482,10 +482,10 @@ handler = LambdaAdapter(app).handler
 
 ```python
 # api/index.py
-from apifrom import APIApp
+from apifrom import API
 from apifrom.adapters import VercelAdapter
 
-app = APIApp()
+app = API()
 
 @app.api("/hello/{name}")
 async def hello(name: str):

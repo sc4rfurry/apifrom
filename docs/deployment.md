@@ -213,12 +213,12 @@ APIFromAnything can be deployed to serverless platforms, allowing you to run you
 Create a file named `lambda_handler.py`:
 
 ```python
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.api import api
 from apifrom.adapters.aws_lambda import LambdaAdapter
 
 # Create an API application
-app = APIApp(title="My Serverless API")
+app = API(title="My Serverless API")
 
 # Define API endpoints
 @api(app)
@@ -272,12 +272,12 @@ aws lambda create-function \
 Create a file named `main.py`:
 
 ```python
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.api import api
 from apifrom.adapters.gcp_functions import CloudFunctionAdapter
 
 # Create an API application
-app = APIApp(title="My Serverless API")
+app = API(title="My Serverless API")
 
 # Define API endpoints
 @api(app)
@@ -329,12 +329,12 @@ Edit `my-api/__init__.py`:
 
 ```python
 import azure.functions as func
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.api import api
 from apifrom.adapters.azure_functions import AzureFunctionAdapter
 
 # Create an API application
-app = APIApp(title="My Serverless API")
+app = API(title="My Serverless API")
 
 # Define API endpoints
 @api(app)

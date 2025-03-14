@@ -16,12 +16,12 @@ import random
 from typing import List, Dict, Any
 from datetime import datetime
 
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.web_optimize import WebOptimize
 from apifrom.server.wsgi import WSGIServer
 
 # Create an API app
-app = APIApp()
+app = API()
 
 # Create connection pools
 db_pool = WebOptimize.create_pool("database", min_size=5, max_size=20)

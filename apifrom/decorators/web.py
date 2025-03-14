@@ -11,6 +11,7 @@ import inspect
 from typing import Any, Callable, Dict, List, Optional, Union
 
 from apifrom.core.response import Response
+from apifrom.core.app import API
 
 
 class Web:
@@ -33,10 +34,10 @@ class Web:
     
     Example:
         ```python
-        from apifrom.core.app import APIApp
+        from apifrom.core.app import API
         from apifrom.decorators.web import Web
         
-        app = APIApp()
+        app = API()
         
         @app.api('/users')
         @Web(title="Users API", description="Get a list of users")
@@ -408,3 +409,5 @@ class Web:
             """
         
         return base_styles + theme_styles 
+
+app = API() 

@@ -15,6 +15,7 @@ from apifrom.performance.connection_pool import ConnectionPool, PoolManager
 from apifrom.performance.request_coalescing import coalesce_requests
 from apifrom.performance.batch_processing import batch_process
 from apifrom.middleware.cache_advanced import MemoryCacheBackend
+from apifrom.core.app import API
 
 
 class WebOptimize(Web):
@@ -44,10 +45,10 @@ class WebOptimize(Web):
     
     Example:
         ```python
-        from apifrom.core.app import APIApp
+        from apifrom.core.app import API
         from apifrom.decorators.web_optimize import WebOptimize
         
-        app = APIApp()
+        app = API()
         
         @app.api('/users')
         @WebOptimize(
@@ -310,3 +311,5 @@ class WebOptimize(Web):
 
 # Alias for backward compatibility and convenience
 Web.optimize = WebOptimize.optimize 
+
+app = API() 

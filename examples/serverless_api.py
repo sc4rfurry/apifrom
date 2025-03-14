@@ -9,7 +9,7 @@ from typing import Dict, List, Optional
 import json
 import os
 
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.api import api
 from apifrom.monitoring.metrics import MetricsCollector
 from apifrom.monitoring.exporters import JSONExporter
@@ -19,7 +19,7 @@ from apifrom.monitoring.exporters import JSONExporter
 PLATFORM = os.environ.get('SERVERLESS_PLATFORM', 'aws')
 
 # Create an API application
-app = APIApp(title="Serverless API Example")
+app = API(title="Serverless API Example")
 
 # Create a metrics collector
 metrics = MetricsCollector()

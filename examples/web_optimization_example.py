@@ -17,7 +17,7 @@ import random
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.web import Web
 from apifrom.server.wsgi import WSGIServer
 from apifrom.performance.profiler import APIProfiler, ProfileMiddleware
@@ -28,7 +28,7 @@ from apifrom.performance.batch_processing import batch_process, BatchProcessor
 from apifrom.performance.optimization import OptimizationAnalyzer, OptimizationConfig, OptimizationLevel
 
 # Create an API app
-app = APIApp()
+app = API()
 
 # Set up performance optimization components
 profiler = APIProfiler()

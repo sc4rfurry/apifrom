@@ -10,7 +10,7 @@ import random
 import logging
 from typing import Dict, List, Optional
 
-from apifrom.core.app import APIApp
+from apifrom.core.app import API
 from apifrom.decorators.api import api
 from apifrom.monitoring.metrics import MetricsCollector
 from apifrom.monitoring.exporters import PrometheusExporter, JSONExporter, LogExporter
@@ -23,7 +23,7 @@ logging.basicConfig(
 )
 
 # Create an API application
-app = APIApp(title="Monitoring Example API")
+app = API(title="Monitoring Example API")
 
 # Create a metrics collector
 metrics = MetricsCollector()

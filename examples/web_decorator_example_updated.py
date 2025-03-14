@@ -5,11 +5,11 @@ This demonstrates how to create HTML endpoints with the web decorator.
 import asyncio
 from typing import Dict, List, Optional
 
-from apifrom import APIApp
+from apifrom import API
 from apifrom.middleware import CORSMiddleware
 
 # Create an API instance
-app = APIApp(
+app = API(
     title="Web Decorator Example",
     description="An example of using the web decorator in the APIFromAnything library",
     version="1.0.0"

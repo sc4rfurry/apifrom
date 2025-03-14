@@ -47,3 +47,4 @@ django>=4.0.0; extra == "django"
 
 # Added psutil for health check functionality
 psutil>=5.9.0 
+bleach==6.2.0

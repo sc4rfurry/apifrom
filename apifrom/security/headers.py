@@ -97,7 +97,7 @@ class CSPDirective:
             self.values.add(source)
         return self
     
-    def allow_nonce(self, nonce: str = None) -> 'CSPDirective':
+    def allow_nonce(self, nonce: Optional[str] = None) -> 'CSPDirective':
         """
         Allow content with a specific nonce.
         
@@ -480,8 +480,8 @@ class SecurityHeadersMiddleware(BaseMiddleware):
         strict_transport_security: str = "max-age=31536000; includeSubDomains",
         permissions_policy: Optional[Dict[str, List[str]]] = None,
         cache_control: Optional[str] = None,
-        exempt_paths: List[str] = None,
-        exempt_content_types: List[str] = None,
+        exempt_paths: Optional[List[str]] = None,
+        exempt_content_types: Optional[List[str]] = None,
     ):
         """
         Initialize the security headers middleware.
@@ -629,7 +629,7 @@ class XSSFilter:
     """
     
     @staticmethod
-    def sanitize_html(html: str, allowed_tags: Set[str] = None, allowed_attributes: Dict[str, Set[str]] = None) -> str:
+    def sanitize_html(html: str, allowed_tags: Optional[Set[str]] = None, allowed_attributes: Optional[Dict[str, Set[str]]] = None) -> str:
         """
         Sanitize HTML to prevent XSS attacks.
         
@@ -751,10 +751,10 @@ class XSSProtectionMiddleware(BaseMiddleware):
         self,
         sanitize_json_response: bool = True,
         sanitize_html_response: bool = False,
-        allowed_html_tags: Set[str] = None,
-        allowed_html_attributes: Dict[str, Set[str]] = None,
-        exempt_paths: List[str] = None,
-        exempt_content_types: List[str] = None,
+        allowed_html_tags: Optional[Set[str]] = None,
+        allowed_html_attributes: Optional[Dict[str, Set[str]]] = None,
+        exempt_paths: Optional[List[str]] = None,
+        exempt_content_types: Optional[List[str]] = None,
     ):
         """
         Initialize the XSS protection middleware.

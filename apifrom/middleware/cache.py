@@ -7,7 +7,7 @@ This module provides middleware for caching API responses to improve performance
 import hashlib
 import json
 import time
-from typing import Any, Callable, Dict, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 from apifrom.core.request import Request
 from apifrom.core.response import Response
@@ -98,9 +98,9 @@ class CacheMiddleware(BaseMiddleware):
         self,
         cache_backend: Any = None,
         ttl: int = 60,
-        methods: list = None,
-        exclude_routes: list = None,
-        vary_headers: list = None,
+        methods: Optional[list] = None,
+        exclude_routes: Optional[list] = None,
+        vary_headers: Optional[list] = None,
         key_prefix: str = "apifrom-cache:",
     ):
         """

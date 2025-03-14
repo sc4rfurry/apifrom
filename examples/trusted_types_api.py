@@ -33,7 +33,7 @@ def validate_script(script: str) -> str:
 def sanitize_html(html: str) -> str:
     # Simple sanitization that removes script tags
     import re
-    html = re.sub(r'<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>', '', html, flags=re.IGNORECASE)
+    html = re.sub(r'<script\b[^<]*(?:(?!</script>)<[^<]*)*</script>', '', html, flags=re.IGNORECASE)
     html = re.sub(r'javascript:', '', html, flags=re.IGNORECASE)
     return html
 

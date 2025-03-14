@@ -34,7 +34,7 @@ class Response:
         self,
         content: t.Any = None,
         status_code: int = 200,
-        headers: t.Dict[str, str] = None,
+        headers: t.Optional[t.Dict[str, str]] = None,
         content_type: str = "application/json"
     ):
         """
@@ -94,10 +94,10 @@ class Response:
         self,
         key: str,
         value: str = "",
-        max_age: int = None,
-        expires: int = None,
+        max_age: t.Optional[int] = None,
+        expires: t.Optional[int] = None,
         path: str = "/",
-        domain: str = None,
+        domain: t.Optional[str] = None,
         secure: bool = False,
         httponly: bool = False,
         samesite: str = "lax"
@@ -169,7 +169,7 @@ class JSONResponse(Response):
         self,
         content: t.Any = None,
         status_code: int = 200,
-        headers: t.Dict[str, str] = None
+        headers: t.Optional[t.Dict[str, str]] = None
     ):
         """
         Initialize a new JSONResponse instance.
@@ -208,7 +208,7 @@ class HTMLResponse(Response):
         self,
         content: str = "",
         status_code: int = 200,
-        headers: t.Dict[str, str] = None
+        headers: t.Optional[t.Dict[str, str]] = None
     ):
         """
         Initialize a new HTMLResponse instance.
@@ -237,7 +237,7 @@ class TextResponse(Response):
         self,
         content: str = "",
         status_code: int = 200,
-        headers: t.Dict[str, str] = None
+        headers: t.Optional[t.Dict[str, str]] = None
     ):
         """
         Initialize a new TextResponse instance.
@@ -266,7 +266,7 @@ class RedirectResponse(Response):
         self,
         url: str,
         status_code: int = 302,
-        headers: t.Dict[str, str] = None
+        headers: t.Optional[t.Dict[str, str]] = None
     ):
         """
         Initialize a new RedirectResponse instance.
@@ -298,9 +298,9 @@ class ErrorResponse(JSONResponse):
         self,
         message: str,
         status_code: int = 400,
-        error_code: str = None,
-        details: t.Dict = None,
-        headers: t.Dict[str, str] = None
+        error_code: t.Optional[str] = None,
+        details: t.Optional[t.Dict] = None,
+        headers: t.Optional[t.Dict[str, str]] = None
     ):
         """
         Initialize a new ErrorResponse instance.

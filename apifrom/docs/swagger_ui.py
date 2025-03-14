@@ -52,8 +52,8 @@ class SwaggerUIConfig:
         custom_swagger_ui_version: str = "5.9.1",
         dom_id: str = "#swagger-ui",
         layout: str = "StandaloneLayout",
-        plugins: List[str] = None,
-        presets: List[str] = None,
+        plugins: Optional[List[str]] = None,
+        presets: Optional[List[str]] = None,
     ):
         """
         Initialize the Swagger UI configuration.
@@ -930,13 +930,13 @@ class SwaggerUI:
     
     async def swagger_ui_html(self, request):
         """
-        Serve the Swagger UI HTML.
+        Serve the Swagger UI HTML page.
         
         Args:
-            request: The request object.
+            request: The request object
             
         Returns:
-            HTML response with the Swagger UI.
+            A response containing the Swagger UI HTML
         """
         config = self.config.to_dict()
         
@@ -944,7 +944,7 @@ class SwaggerUI:
             "swagger_ui.html", 
             {
                 "request": request,
-                "title": self.openapi_generator._config.title,
+                "title": self.openapi_generator.config.title,
                 "openapi_url": f"{self.url_prefix}/openapi.json",
                 "swagger_ui_version": self.config.custom_swagger_ui_version,
                 "static_url": self.static_files_route,

@@ -95,7 +95,7 @@ def serialize(obj: t.Any) -> t.Any:
         return str(obj)
 
 
-def deserialize(data: t.Any, target_type: t.Type) -> t.Any:
+def deserialize(data: t.Any, target_type: t.Union[t.Type, t.Any]) -> t.Any:
     """
     Deserialize data to a specific type.
     
@@ -272,7 +272,7 @@ def serialize_response(result: t.Any) -> t.Any:
 def deserialize_params(
     params: t.Dict[str, t.Any],
     func: t.Union[t.Callable, inspect.Signature],
-    type_hints: t.Dict[str, t.Type] = None
+    type_hints: t.Optional[t.Dict[str, t.Type]] = None
 ) -> t.Dict[str, t.Any]:
     """
     Deserialize parameters for a function call.

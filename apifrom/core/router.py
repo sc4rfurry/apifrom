@@ -34,9 +34,9 @@ class Router:
     def add_route(
         self,
         handler: t.Callable,
-        path: str = None,
+        path: t.Optional[str] = None,
         method: str = "GET",
-        name: str = None,
+        name: t.Optional[str] = None,
         **kwargs
     ) -> None:
         """

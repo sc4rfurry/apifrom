@@ -53,8 +53,8 @@ class API:
         description: str = "API created with APIFromAnything",
         version: str = "1.0.0",
         docs_url: str = "/docs",
-        openapi_config: OpenAPIConfig = None,
-        swagger_ui_config: SwaggerUIConfig = None,
+        openapi_config: OpenAPIConfig | None = None,
+        swagger_ui_config: SwaggerUIConfig | None = None,
         enable_docs: bool = True,
     ):
         """
@@ -123,7 +123,7 @@ class API:
         handler: t.Callable,
         route: str,
         method: str = "GET",
-        name: str = None,
+        name: str | None = None,
         **kwargs
     ) -> None:
         """
@@ -148,9 +148,9 @@ class API:
     def add_route(
         self,
         path: str,
-        endpoint: t.Callable = None,
-        methods: t.Union[t.List[str], str] = None,
-        name: str = None,
+        endpoint: t.Callable | None = None,
+        methods: t.Union[t.List[str], str, None] = None,
+        name: str | None = None,
         include_in_schema: bool = True,
         **kwargs
     ):

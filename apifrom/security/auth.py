@@ -139,17 +139,17 @@ def _get_api_key(request: Request) -> t.Optional[str]:
 def jwt_required(
     func=None,
     *,
-    secret: str = None,
-    algorithm: str = None,
+    secret: t.Optional[str] = None,
+    algorithm: t.Optional[str] = None,
     verify_exp: bool = True,
     verify_aud: bool = False,
-    audience: str = None,
+    audience: t.Optional[str] = None,
     verify_iss: bool = False,
-    issuer: str = None,
+    issuer: t.Optional[str] = None,
     verify_sub: bool = False,
-    subject: str = None,
-    required_claims: t.List[str] = None,
-    optional_claims: t.List[str] = None,
+    subject: t.Optional[str] = None,
+    required_claims: t.Optional[t.List[str]] = None,
+    optional_claims: t.Optional[t.List[str]] = None,
     error_message: str = "Invalid or missing JWT token",
 ):
     """
@@ -282,8 +282,8 @@ def jwt_required(
 def api_key_required(
     func=None,
     *,
-    api_keys: t.Dict[str, t.Union[str, t.List[str], t.Dict[str, t.Any]]] = None,
-    scopes: t.List[str] = None,
+    api_keys: t.Optional[t.Dict[str, t.Union[str, t.List[str], t.Dict[str, t.Any]]]] = None,
+    scopes: t.Optional[t.List[str]] = None,
     error_message: str = "Invalid or missing API key",
 ):
     """
@@ -365,7 +365,7 @@ def api_key_required(
 def basic_auth_required(
     func=None,
     *,
-    credentials: t.Dict[str, str] = None,
+    credentials: t.Optional[t.Dict[str, str]] = None,
     error_message: str = "Invalid or missing credentials",
 ):
     """
@@ -427,8 +427,8 @@ def basic_auth_required(
 def oauth2_required(
     func=None,
     *,
-    scopes: t.List[str] = None,
-    token_url: str = None,
+    scopes: t.Optional[t.List[str]] = None,
+    token_url: t.Optional[str] = None,
     error_message: str = "Invalid or missing OAuth2 token",
 ):
     """

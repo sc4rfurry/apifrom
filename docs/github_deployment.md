@@ -10,7 +10,6 @@ The deployment setup consists of several components:
    - Testing and publishing Python packages to PyPI
    - Building and deploying documentation to GitHub Pages
    - Triggering documentation builds on ReadTheDocs
-   - Building and publishing Docker images
 
 2. **ReadTheDocs Configuration** for hosting comprehensive documentation
 
@@ -29,10 +28,8 @@ Before setting up the GitHub Actions workflows, you need to:
 Set up the following secrets in your GitHub repository:
 
 1. **PYPI_API_TOKEN**: API token for publishing to PyPI
-2. **DOCKERHUB_USERNAME**: Your Docker Hub username
-3. **DOCKERHUB_TOKEN**: Your Docker Hub access token
-4. **RTDS_WEBHOOK_URL**: ReadTheDocs webhook URL
-5. **RTDS_WEBHOOK_TOKEN**: ReadTheDocs webhook token
+2. **RTDS_WEBHOOK_URL**: ReadTheDocs webhook URL (if using ReadTheDocs)
+3. **RTDS_WEBHOOK_TOKEN**: ReadTheDocs webhook token (if using ReadTheDocs)
 
 To add these secrets:
 
@@ -108,10 +105,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install build twine
+        python -m pip install build wheel twine setuptools
     - name: Build package
       run: |
-        python -m build
+        python -m build --sdist --wheel
+    - name: Check package
+      run: |
+        twine check dist/*
     - name: Publish package to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
@@ -229,84 +229,6 @@ jobs:
           webhook_url: ${{ secrets.RTDS_WEBHOOK_URL }}
           webhook_token: ${{ secrets.RTDS_WEBHOOK_TOKEN }}
           commit_ref: ${{ github.ref }}
-```
-
-#### 4. Docker Workflow (`docker.yml`)
-
-This workflow builds and publishes Docker images to Docker Hub and GitHub Container Registry.
-
-```yaml
-name: Docker
-
-on:
-  push:
-    branches: [ main, master ]
-    tags: [ 'v*' ]
-    paths:
-      - 'Dockerfile'
-      - 'docker-compose.yml'
-      - 'docker/**'
-      - 'apifrom/**'
-      - 'requirements.txt'
-  pull_request:
-    branches: [ main, master ]
-    paths:
-      - 'Dockerfile'
-      - 'docker-compose.yml'
-      - 'docker/**'
-      - 'apifrom/**'
-      - 'requirements.txt'
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      
-      - name: Login to DockerHub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Extract metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: |
-            apifrom/apifrom
-            ghcr.io/${{ github.repository }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
-      
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 ```
 
 ## ReadTheDocs Setup
@@ -538,7 +460,6 @@ The GitHub Actions workflows will automatically:
 - Build and publish the package to PyPI
 - Build and deploy the documentation to GitHub Pages
 - Trigger a build on ReadTheDocs
-- Build and publish Docker images
 
 ## Troubleshooting
 
@@ -557,14 +478,6 @@ If you encounter issues with ReadTheDocs:
 1. Check the build logs on ReadTheDocs
 2. Verify that your `.readthedocs.yml` file is correct
 3. Ensure that all required dependencies are listed in `docs/requirements.txt`
-
-### Docker Build Issues
-
-If you encounter issues with Docker builds:
-
-1. Check the workflow run logs for error messages
-2. Verify that your `Dockerfile` is correct
-3. Ensure that all required secrets are set correctly
 
 ## Best Practices
 
@@ -596,6 +509,5 @@ By following this guide, you have set up a comprehensive CI/CD pipeline for your
 
 - Automated testing and package publishing
 - Documentation building and deployment
-- Docker image building and publishing
 
 This setup ensures that your code is thoroughly tested, your documentation is always up-to-date, and your package is easily accessible to users.

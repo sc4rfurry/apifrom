@@ -22,11 +22,11 @@ class CORSMiddleware(BaseMiddleware):
     
     def __init__(
         self,
-        allow_origins: Union[List[str], str] = None,
-        allow_methods: List[str] = None,
-        allow_headers: List[str] = None,
+        allow_origins: Optional[Union[List[str], str]] = None,
+        allow_methods: Optional[List[str]] = None,
+        allow_headers: Optional[List[str]] = None,
         allow_credentials: bool = False,
-        expose_headers: List[str] = None,
+        expose_headers: Optional[List[str]] = None,
         max_age: int = 600,
         preflight_continue: bool = False,
         options_success_status: int = 204,

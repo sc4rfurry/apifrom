@@ -41,7 +41,7 @@ class CSRFToken:
         self.token_length = token_length
         self.max_age = max_age
     
-    def generate_token(self, session_id: str = None) -> str:
+    def generate_token(self, session_id: Optional[str] = None) -> str:
         """
         Generate a new CSRF token.
         
@@ -74,7 +74,7 @@ class CSRFToken:
         # Return the complete token
         return f"{token_data}:{signature}"
     
-    def validate_token(self, token: str, session_id: str = None) -> bool:
+    def validate_token(self, token: str, session_id: Optional[str] = None) -> bool:
         """
         Validate a CSRF token.
         
@@ -157,8 +157,8 @@ class CSRFMiddleware(BaseMiddleware):
         cookie_secure: bool = True,
         cookie_http_only: bool = True,
         cookie_same_site: str = "Lax",
-        exempt_methods: Set[str] = None,
-        exempt_routes: List[str] = None,
+        exempt_methods: Optional[Set[str]] = None,
+        exempt_routes: Optional[List[str]] = None,
         error_message: str = "CSRF token validation failed",
     ):
         """

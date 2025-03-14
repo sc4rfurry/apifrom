@@ -3,18 +3,21 @@
 <div align="center">
 
 [![PyPI version](https://img.shields.io/badge/pypi-v1.0.0-blue.svg)](https://pypi.org/project/apifrom/)
-[![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://apifrom.readthedocs.io/en/latest/)
+[![Documentation Status](https://readthedocs.org/projects/apifrom/badge/?version=latest)](https://apifrom.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python Versions](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue)](https://pypi.org/project/apifrom/)
-[![Docker](https://img.shields.io/badge/docker-available-blue)](https://hub.docker.com/r/apifrom/apifrom)
 
 **Transform Python functions into powerful API endpoints with minimal code changes**
 
 [Documentation](https://apifrom.readthedocs.io/) | [Quick Start](#-quick-start) | [Examples](#-examples) | [Contributing](#-contributing)
 
+![CI](https://github.com/sc4rfurry/apifrom/workflows/CI/badge.svg)
+![CodeQL](https://github.com/sc4rfurry/apifrom/workflows/CodeQL/badge.svg)
+![ReadTheDocs](https://github.com/sc4rfurry/apifrom/workflows/ReadTheDocs/badge.svg)
+
 </div>
 
-## 📋 Table of Contents
+## �� Table of Contents
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
@@ -67,12 +70,6 @@ Whether you're building a simple microservice or a complex API backend, APIFromA
 - **📈 Monitoring**: Grafana dashboards for visualization
 - **🚨 Alerting**: Pre-configured alerts for common issues
 
-### Deployment Options
-- **☁️ Serverless**: Deploy to AWS Lambda, Azure Functions, GCP Functions
-- **🌐 Platforms**: Ready for Vercel, Netlify, and other platforms
-- **🐳 Docker**: Containerization support with Docker and Docker Compose
-- **🚀 CI/CD**: GitHub Actions workflows for testing and deployment
-
 ## 📥 Installation
 
 ### Using pip (Recommended)
@@ -93,13 +90,6 @@ poetry add apifrom
 git clone https://github.com/sc4rfurry/apifrom.git
 cd apifrom
 pip install -e .
-```
-
-### Using Docker
-
-```bash
-docker pull apifrom/apifrom:latest
-docker run -p 8000:8000 apifrom/apifrom:latest
 ```
 
 ## 🚀 Quick Start
@@ -473,44 +463,19 @@ async def hello():
 
 ### GitHub Actions
 
-This project includes several GitHub Actions workflows for continuous integration and deployment:
+This project includes GitHub Actions workflows for continuous integration and deployment:
 
 - **Python Package**: Tests the code and publishes the package to PyPI when a new tag is pushed
 - **Documentation**: Builds and deploys the documentation to GitHub Pages
 - **ReadTheDocs**: Triggers a build on ReadTheDocs when documentation files are updated
-- **Docker**: Builds and publishes Docker images to Docker Hub and GitHub Container Registry
 
 To set up these workflows:
 
 1. Push your code to a GitHub repository
 2. Set up the necessary secrets in your repository settings:
    - `PYPI_API_TOKEN`: API token for publishing to PyPI
-   - `DOCKERHUB_USERNAME`: Your Docker Hub username
-   - `DOCKERHUB_TOKEN`: Your Docker Hub access token
-   - `RTDS_WEBHOOK_URL`: ReadTheDocs webhook URL
-   - `RTDS_WEBHOOK_TOKEN`: ReadTheDocs webhook token
 
 For detailed instructions, see the [GitHub and ReadTheDocs Deployment Guide](https://apifrom.readthedocs.io/en/latest/github_deployment/).
-
-### Docker
-
-```bash
-# Build the Docker image
-docker build -t apifrom/apifrom .
-
-# Run the Docker container
-docker run -p 8000:8000 apifrom/apifrom
-```
-
-### Docker Compose
-
-```bash
-# Start all services
-docker-compose up -d
-
-# Stop all services
-docker-compose down
-```
 
 ### Serverless
 

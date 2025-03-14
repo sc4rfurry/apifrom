@@ -34,10 +34,10 @@ class TrustedTypesPolicy:
         """
         self.name = name
         self.enforce = enforce
-        self.script_handlers = []
-        self.html_handlers = []
-        self.script_url_handlers = []
-        self.url_handlers = []
+        self.script_handlers: List[Callable[[str], str]] = []
+        self.html_handlers: List[Callable[[str], str]] = []
+        self.script_url_handlers: List[Callable[[str], str]] = []
+        self.url_handlers: List[Callable[[str], str]] = []
     
     def create_script(self, script: str) -> str:
         """
@@ -177,12 +177,12 @@ class TrustedTypesMiddleware(BaseMiddleware):
     
     def __init__(
         self,
-        policies: List[TrustedTypesPolicy] = None,
+        policies: Optional[List[TrustedTypesPolicy]] = None,
         require_for_script: bool = True,
         allow_duplicates: bool = False,
         report_only: bool = False,
         report_uri: Optional[str] = None,
-        exempt_paths: List[str] = None,
+        exempt_paths: Optional[List[str]] = None,
     ):
         """
         Initialize the Trusted Types middleware.

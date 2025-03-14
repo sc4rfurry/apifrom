@@ -12,7 +12,7 @@ import hashlib
 import inspect
 import asyncio
 import redis
-from typing import Dict, List, Any, Optional, Union, Callable, Tuple, Set
+from typing import Dict, List, Any, Optional, Union, Callable, Tuple, Set, TypeVar
 import threading
 import os
 import pickle
@@ -494,8 +494,9 @@ class MemoryCacheBackend(CacheBackend):
 
 
 class RedisCacheBackend(CacheBackend):
-    """Redis cache backend."""
-    
+    """
+    Redis cache backend.
+    """
     def __init__(
         self,
         redis_url: str = "redis://localhost:6379/0",
@@ -505,7 +506,7 @@ class RedisCacheBackend(CacheBackend):
     ):
         """
         Initialize the Redis cache backend.
-        
+
         Args:
             redis_url: The Redis connection URL
             prefix: The key prefix to use
@@ -537,7 +538,6 @@ class RedisCacheBackend(CacheBackend):
         except (RedisError, ConnectionError) as e:
             logger.warning(f"Failed to connect to Redis: {e}")
             self._redis = None
-    
     @property
     def redis(self):
         """Get the Redis client, reconnecting if necessary."""
@@ -985,7 +985,7 @@ class CacheControl:
     """
     
     @staticmethod
-    def cache(ttl: int = 60, tags: List[str] = None, dependencies: List[str] = None):
+    def cache(ttl: int = 60, tags: Optional[List[str]] = None, dependencies: Optional[List[str]] = None):
         """
         Decorator to cache the response of an API endpoint.
         

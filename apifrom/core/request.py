@@ -35,13 +35,13 @@ class Request:
     def __init__(
         self, 
         request: t.Optional[StarletteRequest] = None, 
-        path_params: dict = None,
-        method: str = None,
-        path: str = None,
-        query_params: dict = None,
-        headers: dict = None,
-        body: t.Union[str, bytes] = None,
-        client_ip: str = None
+        path_params: t.Optional[dict[t.Any, t.Any]] = None,
+        method: t.Optional[str] = None,
+        path: t.Optional[str] = None,
+        query_params: t.Optional[dict[t.Any, t.Any]] = None,
+        headers: t.Optional[dict[t.Any, t.Any]] = None,
+        body: t.Optional[t.Union[str, bytes]] = None,
+        client_ip: t.Optional[str] = None
     ):
         """
         Initialize a new Request instance.

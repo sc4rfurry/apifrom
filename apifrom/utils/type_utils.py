@@ -84,7 +84,7 @@ def get_origin_type(type_hint: t.Type) -> t.Type:
     
     # Handle Optional types
     if origin is t.Union and type(None) in args:
-        return t.Union
+        return type(t.Union)
     
     # Handle other generic types
     if origin is not None:
@@ -122,7 +122,8 @@ def get_inner_type(type_hint: t.Type) -> t.Type:
         if len(args) == 1:
             return args[0]
         else:
-            return args
+            # Convert tuple of types to a tuple type for type compatibility
+            return type(args)
     
     # Not a generic type
     return type_hint

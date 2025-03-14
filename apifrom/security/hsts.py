@@ -26,7 +26,7 @@ class HSTSMiddleware(BaseMiddleware):
         include_subdomains: bool = True,
         preload: bool = False,
         force_https_redirect: bool = True,
-        exempt_paths: List[str] = None,
+        exempt_paths: Optional[List[str]] = None,
     ):
         """
         Initialize the HSTS middleware.

@@ -426,8 +426,8 @@ class RateLimitMiddleware(BaseMiddleware):
     def __init__(
         self,
         limiter: RateLimiter,
-        key_func: Callable[[Request], str] = None,
-        exclude_routes: List[str] = None,
+        key_func: Optional[Callable[[Request], str]] = None,
+        exclude_routes: Optional[List[str]] = None,
         headers_enabled: bool = True,
     ):
         """
@@ -646,7 +646,7 @@ class RateLimit:
     """
     
     @staticmethod
-    def limit(limit: int, window: int = 60, key_func: Callable = None):
+    def limit(limit: int, window: int = 60, key_func: Optional[Callable] = None):
         """
         Apply a rate limit to an endpoint.
         

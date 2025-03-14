@@ -24,7 +24,7 @@ except UnicodeDecodeError:
 
 setup(
     name="apifrom",
-    version="1.0.0",  # Explicitly set version to 1.0.0
+    version=version,  # Use the extracted version
     description="Transform any Python function into a REST API endpoint.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -69,6 +69,22 @@ setup(
             "isort>=5.10.0",
             "mypy>=0.950",
             "flake8>=4.0.0",
+        ],
+        "docs": [
+            "sphinx>=4.5.0",
+            "sphinx-rtd-theme>=1.0.0",
+            "recommonmark>=0.7.1",
+            "sphinx-markdown-tables>=0.0.15",
+            "sphinx-autodoc-typehints>=1.18.3",
+            "sphinx-copybutton>=0.5.0",
+            "sphinx-tabs>=3.4.0",
+            "sphinx-togglebutton>=0.3.2",
+            "myst-parser>=0.18.1",
+            "sphinx-design>=0.3.0",
+            "sphinx-notfound-page>=0.8.3",
+            "sphinx-prompt>=1.5.0",
+            "sphinx-inline-tabs>=2022.1.2b11",
+            "sphinx-autoapi>=2.0.0",
         ],
         "all": [
             "sqlalchemy>=1.4.0",

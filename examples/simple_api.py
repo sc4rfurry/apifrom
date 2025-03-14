@@ -1,44 +1,71 @@
 """
 A simple example of using the APIFromAnything library.
 """
-from apifrom import APIApp
+import logging
+import asyncio
+from apifrom import API
+from apifrom.core.request import Request
+from apifrom.core.response import JSONResponse
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Create an API instance
-app = APIApp(
+app = API(
     title="Simple API Example",
     description="A simple example of using the APIFromAnything library",
-    version="1.0.0"
+    version="1.0.0",
+    debug=True,
+    enable_docs=False  # Disable documentation to avoid Swagger UI issues
 )
 
 # Define a simple endpoint
-@app.api("/hello/{name}")
-def hello(name: str, greeting: str = "Hello") -> dict:
+@app.add_route("/hello/{name}")
+def hello(request: Request):
     """
     Say hello to someone.
     
     Args:
-        name: The name to greet
-        greeting: The greeting to use (default: "Hello")
+        request: The request object
         
     Returns:
         A greeting message
     """
-    return {"message": f"{greeting}, {name}!"}
+    logger.debug(f"Request: {request}")
+    logger.debug(f"Path params: {request.path_params}")
+    
+    name = request.path_params.get("name", "world")
+    greeting = request.query_params.get("greeting", "Hello")
+    
+    response = JSONResponse({"message": f"{greeting}, {name}!"})
+    return response.to_starlette_response()
 
 # Define an endpoint with more complex parameters
-@app.api("/users", methods=["POST"])
-def create_user(name: str, email: str, age: int = None) -> dict:
+@app.add_route("/users", methods=["POST"])
+async def create_user(request: Request):
     """
     Create a new user.
     
     Args:
-        name: The user's name
-        email: The user's email
-        age: The user's age (optional)
+        request: The request object
         
     Returns:
         The created user
     """
+    logger.debug(f"Request: {request}")
+    
+    data = await request.json()
+    logger.debug(f"JSON data: {data}")
+    
+    name = data.get("name")
+    email = data.get("email")
+    age = data.get("age")
+    
+    if not name or not email:
+        response = JSONResponse({"error": "Name and email are required"}, status_code=400)
+        return response.to_starlette_response()
+    
     user = {
         "name": name,
         "email": email,
@@ -48,28 +75,38 @@ def create_user(name: str, email: str, age: int = None) -> dict:
     if age is not None:
         user["age"] = age
     
-    return user
+    response = JSONResponse(user)
+    return response.to_starlette_response()
 
 # Define an endpoint with error handling
-@app.api("/divide/{a}/{b}")
-def divide(a: float, b: float) -> dict:
+@app.add_route("/divide/{a}/{b}")
+def divide(request: Request):
     """
     Divide two numbers.
     
     Args:
-        a: The numerator
-        b: The denominator
+        request: The request object
         
     Returns:
         The result of the division
-        
-    Raises:
-        ValueError: If b is zero
     """
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
+    logger.debug(f"Request: {request}")
+    logger.debug(f"Path params: {request.path_params}")
     
-    return {"result": a / b}
+    try:
+        a = float(request.path_params.get("a", 0))
+        b = float(request.path_params.get("b", 1))
+        
+        if b == 0:
+            response = JSONResponse({"error": "Cannot divide by zero"}, status_code=400)
+            return response.to_starlette_response()
+        
+        response = JSONResponse({"result": a / b})
+        return response.to_starlette_response()
+    except Exception as e:
+        logger.exception("Error in divide endpoint")
+        response = JSONResponse({"error": str(e)}, status_code=500)
+        return response.to_starlette_response()
 
 # Run the API server
 if __name__ == "__main__":

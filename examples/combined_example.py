@@ -4,13 +4,13 @@ A comprehensive example of using the APIFromAnything library with multiple featu
 from typing import Dict, List, Optional
 import asyncio
 
-from apifrom import APIApp
+from apifrom import API
 from apifrom.middleware import CORSMiddleware, LoggingMiddleware, RateLimitingMiddleware
 from apifrom.security import JWTAuth
 from apifrom.cache import MemoryCache
 
 # Create an API instance
-app = APIApp(
+app = API(
     title="Comprehensive API Example",
     description="A comprehensive example of using the APIFromAnything library",
     version="1.0.0",

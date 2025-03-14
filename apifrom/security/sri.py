@@ -52,7 +52,7 @@ class SRIGenerator:
         return f"{algorithm.value}-{base64_hash}"
     
     @staticmethod
-    def generate_integrity_attribute(content: Union[str, bytes], algorithms: List[SRIHashAlgorithm] = None) -> str:
+    def generate_integrity_attribute(content: Union[str, bytes], algorithms: Optional[List[SRIHashAlgorithm]] = None) -> str:
         """
         Generate a complete integrity attribute for HTML elements.
         
@@ -118,15 +118,13 @@ class SRIMiddleware(BaseMiddleware):
     
     def __init__(
         self,
-        script_sources: Dict[str, str] = None,
-        style_sources: Dict[str, str] = None,
+        script_sources: Optional[Dict[str, str]] = None,
+        style_sources: Optional[Dict[str, str]] = None,
         verify_external_resources: bool = False,
-        algorithms: List[SRIHashAlgorithm] = None,
-        exempt_paths: List[str] = None,
+        algorithms: Optional[List[SRIHashAlgorithm]] = None,
+        exempt_paths: Optional[List[str]] = None,
     ):
         """
-        Initialize the SRI middleware.
-        
         Args:
             script_sources: Dictionary mapping script URLs to their integrity values
             style_sources: Dictionary mapping style URLs to their integrity values
@@ -142,8 +140,8 @@ class SRIMiddleware(BaseMiddleware):
         self.exempt_paths = exempt_paths or []
         
         # Cache for computed integrity values
-        self._integrity_cache = {}
-    
+        # Cache for computed integrity values
+        self._integrity_cache: Dict[str, str] = {}
     def _is_exempt(self, request: Request) -> bool:
         """
         Check if a request is exempt from SRI processing.

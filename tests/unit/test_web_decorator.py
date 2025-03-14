@@ -300,20 +300,21 @@ class TestWebDecorator:
         
         # Check that the results are the same
         assert result1 == result2
-        
+
         # Check that the profiler collected data
         assert "test_endpoint" in web.profiler.profile_data
         # The profiler should only record one call since the second call is cached
-        assert web.profiler.profile_data["test_endpoint"]["call_count"] == 2
-        
+        assert (web.profiler.profile_data["test_endpoint"]["call_count"] == 
+                2)
+
         # Check that the connection pool was used
         assert "test_endpoint" in web.connection_pool.connections
         assert web.connection_pool.connections["test_endpoint"]["count"] == 1
-        
+
         # Check that the endpoint was registered with the app
         assert "/test_endpoint" in app.routes
         assert app.routes["/test_endpoint"]["handler"] == test_endpoint
 
 
 if __name__ == "__main__":
-    pytest.main(["-v", __file__]) 
+    pytest.main(["-v", __file__])

@@ -210,7 +210,7 @@ class PermissionsPolicyMiddleware(BaseMiddleware):
     def __init__(
         self,
         policy: Optional[PermissionsPolicy] = None,
-        exempt_paths: List[str] = None,
+        exempt_paths: Optional[List[str]] = None,
     ):
         """
         Initialize the Permissions Policy middleware.

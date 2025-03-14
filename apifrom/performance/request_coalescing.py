@@ -8,7 +8,7 @@ reducing the load on backend services and improving performance.
 import threading
 import time
 import logging
-from typing import Any, Callable, Dict, List, Optional, TypeVar, cast, Union
+from typing import Any, Callable, Dict, List, Optional, TypeVar, cast, Union, overload
 
 # Type variables for generic typing
 T = TypeVar('T')
@@ -44,8 +44,8 @@ class CoalescedRequest:
         self.result = None
         self.is_executed = False
         self.is_error = False
-        self.error = None
-    
+        self.is_error = False
+        self.error: Optional[Exception] = None
     def execute(self) -> Any:
         """
         Execute the request.
@@ -92,8 +92,8 @@ class RequestCoalescingManager:
         Returns:
             RequestCoalescer: Coalescer for the function.
         """
-        func_id = id(func)
-        
+        func_id = str(id(func))
+
         with self.lock:
             if func_id not in self.coalescers:
                 self.coalescers[func_id] = RequestCoalescer(func, window_time, max_requests)
@@ -221,20 +221,21 @@ class RequestCoalescer:
         }
         self.request_counts: Dict[str, int] = {}
         self.lock_acquired = False
-    
-    def execute(self, *args: Any, **kwargs: Any) -> R:
-        """
-        Execute a request, potentially coalescing it with other identical requests.
-        
-        Args:
-            *args: Positional arguments for the function.
-            **kwargs: Keyword arguments for the function.
+
+        def execute(self, *args: Any, **kwargs: Any) -> R:
+            """
+            Execute a request, potentially coalescing it with other identical requests.
             
-        Returns:
-            Any: Result of executing the function.
-        """
+            Args:
+                *args: Positional arguments for the function.
+                **kwargs: Keyword arguments for the function.
+                
+            Returns:
+                Any: Result of executing the function.
+            """
         # Create a cache key from the arguments
-        key = self._create_key(args, kwargs)
+        # Create a cache key from the arguments
+        key = self._create_key(*args, **kwargs)
         
         self.lock.acquire()
         self.lock_acquired = True
@@ -280,12 +281,10 @@ class RequestCoalescer:
                     self.lock_acquired = True
                     
                     self.results_cache[key] = result
-                    
+
                     # Remove the pending request
                     if key in self.pending_requests:
                         del self.pending_requests[key]
-                    
-                    return result
                 except Exception as e:
                     # Acquire the lock again to update the cache
                     if not self.lock_acquired:
@@ -312,7 +311,7 @@ class RequestCoalescer:
                 logger.warning(f"Request {key} is pending but no result is available")
                 self.lock.release()
                 self.lock_acquired = False
-                return cast(R, None)
+                return None  # type: ignore
         finally:
             # Make sure the lock is released
             if self.lock_acquired:
